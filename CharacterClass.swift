@@ -23,6 +23,7 @@ class Character {
     var baseAutoAttackDamage: Int
     var attackSpeed: Double
     var baseAttackSpeed: Double
+    var isFacingRight: Bool
     
     let imageNumberAttack: Int
     let imageNumberMovement: Int
@@ -67,6 +68,7 @@ class Character {
         self.imageNumberMovement = imageNumberMovement
         self.imageNumberProjectile = imageNumberProjectile
         self.imageNumberHeal = imageNumberHeal
+        self.isFacingRight = true
         
         //      all non-init declarations should be made externally when object is declared
         
@@ -74,6 +76,7 @@ class Character {
             let imageView = UIImageView(frame: CGRect(x: -200, y: -200, width: 200, height: 230))
             imageView.image = characterBaseImage
             imageView.contentMode = .scaleAspectFit
+            imageView.backgroundColor = UIColor(displayP3Red: 1.0, green: 0, blue: 0, alpha: 1.0)
             return imageView
         }()
         if (name == heroList[0]){
