@@ -13,6 +13,7 @@ class Character {
     var canAttack = true
     var xp = 0
     var level = 1
+    var xpModifier = 1.0
     var timerChecker = false
     var isMelee: Bool
     var movementSpeed: Double
@@ -23,7 +24,11 @@ class Character {
     var baseAutoAttackDamage: Int
     var attackSpeed: Double
     var baseAttackSpeed: Double
+    var armorValue: Int
+    var baseArmorValue: Int
     var isFacingRight: Bool
+    var target: Character?
+    var secondaryThreat: Character?
     
     let imageNumberAttack: Int
     let imageNumberMovement: Int
@@ -46,11 +51,11 @@ class Character {
     var healingImages: [UIImage]? = []
     var animation: UIViewPropertyAnimator
     
-    convenience init (characterName: String, isEnemy: Bool, characterBaseImage: UIImage, imageNumberAttack: Int, imageNumberMovement: Int, movementSpeed: Double, HP: Int, attackSpeed: Double, autoAttackDamage: Int, isMelee: Bool, isHealer: Bool) {
-        self.init (characterName: characterName, isEnemy: isEnemy, characterBaseImage: characterBaseImage, imageNumberAttack: imageNumberAttack, imageNumberMovement: imageNumberMovement, imageNumberProjectile: 0, imageNumberHeal: 0, movementSpeed: movementSpeed, HP: HP, attackSpeed: attackSpeed, autoAttackDamage: autoAttackDamage, isMelee: isMelee, isHealer: isHealer, secondaryBaseImage: nil)
+    convenience init (characterName: String, isEnemy: Bool, characterBaseImage: UIImage, imageNumberAttack: Int, imageNumberMovement: Int, movementSpeed: Double, HP: Int, attackSpeed: Double, autoAttackDamage: Int, armorValue: Int, isMelee: Bool, isHealer: Bool) {
+        self.init (characterName: characterName, isEnemy: isEnemy, characterBaseImage: characterBaseImage, imageNumberAttack: imageNumberAttack, imageNumberMovement: imageNumberMovement, imageNumberProjectile: 0, imageNumberHeal: 0, movementSpeed: movementSpeed, HP: HP, attackSpeed: attackSpeed, autoAttackDamage: autoAttackDamage, armorValue: armorValue, isMelee: isMelee, isHealer: isHealer, secondaryBaseImage: nil)
     }
     
-    init (characterName: String, isEnemy: Bool, characterBaseImage: UIImage, imageNumberAttack: Int, imageNumberMovement: Int, imageNumberProjectile: Int, imageNumberHeal: Int, movementSpeed: Double, HP: Int, attackSpeed: Double, autoAttackDamage: Int, isMelee: Bool, isHealer: Bool, secondaryBaseImage: UIImage?) {
+    init (characterName: String, isEnemy: Bool, characterBaseImage: UIImage, imageNumberAttack: Int, imageNumberMovement: Int, imageNumberProjectile: Int, imageNumberHeal: Int, movementSpeed: Double, HP: Int, attackSpeed: Double, autoAttackDamage: Int, armorValue: Int, isMelee: Bool, isHealer: Bool, secondaryBaseImage: UIImage?) {
         if (characterName == heroList[0]) {self.exists = false}
         name = characterName
         self.isEnemy = isEnemy
@@ -69,6 +74,8 @@ class Character {
         self.imageNumberProjectile = imageNumberProjectile
         self.imageNumberHeal = imageNumberHeal
         self.isFacingRight = true
+        self.armorValue = armorValue
+        self.baseArmorValue = armorValue
         
         //      all non-init declarations should be made externally when object is declared
         
@@ -123,5 +130,6 @@ class Character {
         movementSpeed = baseMovementSpeed
         attackSpeed = baseAttackSpeed
         autoAttackDamage = baseAutoAttackDamage
+        armorValue = baseArmorValue
     }
 }

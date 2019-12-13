@@ -29,14 +29,14 @@ var missingTextView: UITextView = {             //Remove once all views are made
 
 
 //Set proper image numbers when images are obtained
-var MissingHero = Character(characterName: heroList[0], isEnemy: false, characterBaseImage: UIImage(named: "blackBackground")!, imageNumberAttack: 0, imageNumberMovement: 0, movementSpeed: 0.0, HP: 0, attackSpeed: 0.0, autoAttackDamage: 0, isMelee: false, isHealer: false)
-var Warrior = Character(characterName: heroList[1], isEnemy: false, characterBaseImage: UIImage(named: "Warrior-1")!, imageNumberAttack: 4, imageNumberMovement: 5, movementSpeed: 350.0, HP: 150, attackSpeed: 1.0, autoAttackDamage: 10, isMelee: true, isHealer: false)
+var MissingHero = Character(characterName: heroList[0], isEnemy: false, characterBaseImage: UIImage(named: "blackBackground")!, imageNumberAttack: 0, imageNumberMovement: 0, movementSpeed: 0.0, HP: 0, attackSpeed: 0.0, autoAttackDamage: 0, armorValue: 0, isMelee: false, isHealer: false)
+var Warrior = Character(characterName: heroList[1], isEnemy: false, characterBaseImage: UIImage(named: "Warrior-1")!, imageNumberAttack: 4, imageNumberMovement: 5, movementSpeed: 350.0, HP: 150, attackSpeed: 10.0, autoAttackDamage: 3, armorValue: 40, isMelee: true, isHealer: false)
 //var Cleric = Character(characterName: heroList[2], isEnemy: false, characterBaseImage: <#T##UIImage#>, imageNumberAttack: <#T##Int#>, imageNumberMovement: <#T##Int#>, movementSpeed: 30.0, HP: 75, attackSpeed: 1.5, autoAttackDamage: -15, isMelee: false, isHealer: true)
 //var Druid = Character(characterName: heroList[3], isEnemy: false, characterBaseImage: <#T##UIImage#>, imageNumberAttack: <#T##Int#>, imageNumberMovement: <#T##Int#>, movementSpeed: 35.0, HP: 75, attackSpeed: 1.25, autoAttackDamage: 15, isMelee: false, isHealer: false)
 //var Ranger = Character(characterName: heroList[4], isEnemy: false, characterBaseImage: <#T##UIImage#>, imageNumberAttack: <#T##Int#>, imageNumberMovement: <#T##Int#>, imageNumberProjectile: <#T##Int#>, imageNumberHeal: 0, movementSpeed: 35.0, HP: 75, attackSpeed: 2.0, autoAttackDamage: 10, isMelee: false, isHealer: false, secondaryBaseImage: <#T##UIImage?#>)
 //
-var MissingEnemy = Character(characterName: enemyList[0], isEnemy: true, characterBaseImage: UIImage(named: "blackBackground")!, imageNumberAttack: 0, imageNumberMovement: 0, movementSpeed: 0.0, HP: 0, attackSpeed: 0.0, autoAttackDamage: 0, isMelee: false, isHealer: false)
-var SkeletonArcher1 = Character(characterName: enemyList[1], isEnemy: true, characterBaseImage: UIImage(named: "SkeletonArcher-1")!, imageNumberAttack: 3, imageNumberMovement: 0, imageNumberProjectile: 0, imageNumberHeal: 0, movementSpeed: 0.0, HP: 75, attackSpeed: 1.5, autoAttackDamage: 12, isMelee: false, isHealer: false, secondaryBaseImage: nil)
+var MissingEnemy = Character(characterName: enemyList[0], isEnemy: true, characterBaseImage: UIImage(named: "blackBackground")!, imageNumberAttack: 0, imageNumberMovement: 0, movementSpeed: 0.0, HP: 0, attackSpeed: 0.0, autoAttackDamage: 0, armorValue: 0, isMelee: false, isHealer: false)
+var SkeletonArcher1 = Character(characterName: enemyList[1], isEnemy: true, characterBaseImage: UIImage(named: "SkeletonArcher-1")!, imageNumberAttack: 3, imageNumberMovement: 0, imageNumberProjectile: 0, imageNumberHeal: 0, movementSpeed: 0.0, HP: 75, attackSpeed: 1.5, autoAttackDamage: 12, armorValue: 15, isMelee: false, isHealer: false, secondaryBaseImage: nil)
 //var Goblin1 = Character(characterName: enemyList[2], isEnemy: true, characterBaseImage: <#T##UIImage#>, imageNumberAttack: <#T##Int#>, imageNumberMovement: <#T##Int#>, movementSpeed: 30.0, HP: 50, attackSpeed: 1.2, autoAttackDamage: 8, isMelee: true, isHealer: false)
 //var Goblin2 = Character(characterName: enemyList[2], isEnemy: true, characterBaseImage: <#T##UIImage#>, imageNumberAttack: <#T##Int#>, imageNumberMovement: <#T##Int#>, movementSpeed: 30.0, HP: 50, attackSpeed: 1.2, autoAttackDamage: 8, isMelee: true, isHealer: false)
 
@@ -63,8 +63,9 @@ var activeEnemies: [Character] = [MissingEnemy, MissingEnemy, MissingEnemy, Miss
 let bronzeSword = Item(itemName: "Bronze Sword", equipableBy: [Warrior], damageValue: 2, appearance: UIImage(named: "blackBackground")!, price: 50, itemLevel: 1)
 let MissingItem = Item(itemName: "0", equipableBy: [], damageValue: 0, appearance: UIImage(named: "blackBackground")!, price: 0, itemLevel: 0)
 
-let Tutorial = Level(levelNumber: 0, goldReward: 50, itemReward: bronzeSword, xpReward: 100, enemyLoadTable: [SkeletonArcher1, MissingEnemy, MissingEnemy, MissingEnemy])
+let Tutorial = Level(levelNumber: 0, goldReward: 50, itemReward: MissingItem, xpReward: 100, enemyLoadTable: [[SkeletonArcher1, MissingEnemy, MissingEnemy, MissingEnemy], [MissingEnemy, MissingEnemy]])
 let MissingLevel = Level(levelNumber: -1, goldReward: 0, itemReward: MissingItem, xpReward: 0, enemyLoadTable: [])
+
 var currentLevel = MissingLevel
 
 class GameViewController: UIViewController, UITextFieldDelegate {
@@ -134,7 +135,9 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     
     var mapPage = 0
     var levelNumber = 0
+    var activeHeroCount = 0
     var selectedHero: Character = MissingHero
+    var currentLoadTable = 0
     var screenCounter = 0
 //    var heroCounter = 0
     var mapCoordinate = 0
@@ -198,56 +201,94 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    private func characterKilled(character: Character, characterListPosition: Int) {
+    private func characterKilled(character: Character, characterListPosition: Int, attacker: Character) {
+        character.imageView.stopAnimating()
+        character.animation.stopAnimation(true)
+        
         //character.imageView.animationImages = character.deathImages           //impliment once death images have been made
         //character.imageView.animationDuration = 1.0
         //character.imageView.animationRepeatCount = 1
         //character.imageView.startAnimating()
         
-//        Timer.scheduledTimer(withTimeInterval: character.imageView.animationDuration, repeats: false) { (_) in            //Potentially superfluous
-//            character.imageView.center = CGPoint(x: -200, y: -200)
+//        Timer.scheduledTimer(withTimeInterval: character.imageView.animationDuration, repeats: false) { (_) in
+//            character.imageView.center = CGPoint(x: -500, y: -500)
 //        }
         
+        character.imageView.center = CGPoint(x: -500, y: -500)          //Remove once death animations are implimented
         if (character.isEnemy == true){
-            currentLevel.enemyLoadTable[characterListPosition] = MissingEnemy
-            for i in 0..<currentLevel.enemyLoadTable.count {
-                if (currentLevel.enemyLoadTable[i].name != MissingEnemy.name) {return}
+            currentLevel.enemyLoadTable[currentLoadTable][characterListPosition] = MissingEnemy
+            for i in 0..<currentLevel.enemyLoadTable[currentLoadTable].count {
+                if (currentLevel.enemyLoadTable[currentLoadTable][i].name != MissingEnemy.name) {return}
             }
-            currentLevel.complete = true
-            combatEnded(level: currentLevel)
+            currentLoadTable += 1
+            if (currentLoadTable * currentLevel.enemyLoadTable[currentLoadTable-1].count > currentLevel.enemyLoadTable.count) {
+                currentLevel.complete = true
+                combatEnded(level: currentLevel)
+                return
+            }
         }
         else {
-            
+            activeHeroCount -= 1
+            if (activeHeroCount <= 0) {
+                currentLevel.complete = false
+                combatEnded(level: currentLevel)
+                return
+            }
+            if (attacker.secondaryThreat != nil) {attacker.target = attacker.secondaryThreat!}
+            for i in 0...3 {
+                if (activeHeroes[i].name == selectedHero.name) {self.deSelectHero()}
+            }
         }
     }
     
+    private func deSelectHero() {
+        selectedHero = MissingHero
+        deSelectButton.isHidden = true
+    }
+    
     func animateAttack(heroClass: Character, target: Character, attackedListPosition: Int? = -1) {
+        let duration = 1/heroClass.attackSpeed
         heroClass.imageView.animationImages = heroClass.attackImages
-        heroClass.imageView.animationDuration = heroClass.attackSpeed
+        heroClass.imageView.animationDuration = duration
         heroClass.imageView.animationRepeatCount = 0
         heroClass.imageView.startAnimating()
-        heroClass.attackTimer = Timer.scheduledTimer(withTimeInterval: heroClass.attackSpeed, repeats: true) { (_) in
+        heroClass.attackTimer = Timer.scheduledTimer(withTimeInterval: duration, repeats: true) { (_) in
             let xDist = heroClass.imageView.center.x - target.imageView.center.x
             let verticalModifier = target.imageView.frame.origin.y + (target.imageView.frame.height - 180)
             let dist = abs(heroClass.imageView.center.x - target.imageView.center.x)+abs(verticalModifier - heroClass.imageView.frame.origin.y + heroClass.imageView.frame.height - 180)
             print("Attacking - Timer currently Validated")
+            print("totalDist   \(dist)")
+            print("List Placement :   \(attackedListPosition!)")
             target.HP -= heroClass.autoAttackDamage
-            if (heroClass.isFacingRight == true) {target.imageView.center.x += 20}
-            else {target.imageView.center.x -= 20}
+            if (target.target != nil && heroClass.armorValue > target.target!.armorValue) {
+                target.secondaryThreat = target.target
+                target.target = heroClass
+            }
+            if (heroClass.isFacingRight == true) {
+                target.imageView.center.x += 20
+                if (target.imageView.center.x > self.tapRecognizerView.frame.maxX) {
+                    self.animateMovementPrimary(location: CGPoint(x: self.tapRecognizerView.frame.maxX - target.imageView.frame.width / 2, y: target.imageView.frame.origin.y - 180 + target.imageView.frame.height), heroClass: target)
+                }
+            }
+            else {
+                target.imageView.center.x -= 20
+                if (target.imageView.center.x < self.tapRecognizerView.frame.minX) {
+                    self.animateMovementPrimary(location: CGPoint(x: self.tapRecognizerView.frame.minX + target.imageView.frame.width / 2, y: target.imageView.frame.origin.y - 180 + target.imageView.frame.height), heroClass: target)
+                }
+            }
             
             if (target.HP <= 0) {
                 heroClass.imageView.stopAnimating()
                 heroClass.attackTimer.invalidate()
                 print("Target Killed - Attack Timer invalidated")
                 heroClass.timerChecker = false
-                target.imageView.center = CGPoint(x: -200, y: -200)
-                self.characterKilled(character: target, characterListPosition: attackedListPosition!)
+                self.characterKilled(character: target, characterListPosition: attackedListPosition!, attacker: heroClass)
                 return
             }
             
-            if (dist >= 260 && heroClass.isMelee && currentLevel.enemyLoadTable[attackedListPosition!].name != MissingEnemy.name) {
-                print("Distance to attack is too far - moving closer   \(dist)")
-                print("xDist   \(xDist)")
+            if (dist >= 260 && heroClass.isMelee && currentLevel.enemyLoadTable[self.currentLoadTable][attackedListPosition!].name != MissingEnemy.name) {
+                print("Distance to attack is too far - moving closer")
+                
                 heroClass.imageView.stopAnimating()
                 heroClass.attackTimer.invalidate()
                 heroClass.timerChecker = true
@@ -268,7 +309,7 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     
     
     //      Re-enable and fix when projectile images/healing images are made
-    func animateRangedAttack(heroClass: Character, target: Character, attackedListPosition: Int? = -1, level: Level? = MissingLevel){      //no projectile images have been made - will be implimented once they have been
+    func animateRangedAttack(heroClass: Character, target: Character, attackedListPosition: Int? = -1, level: Level? = MissingLevel) {      //no projectile images have been made - will be implimented once they have been
 //        let projectileImageView: UIImageView
 //
 //        projectileImageView.animationImages = heroClass.projectileImages!
@@ -307,6 +348,12 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     
     func animateMovementPrimary(location: CGPoint, heroClass: Character, target: Character? = MissingHero, attackedListPosition: Int? = -1, combatEnded: Bool? = false) {
         if (heroClass.name == MissingHero.name) {return}
+        if (heroClass.movementSpeed == 0) {
+            heroClass.imageView.frame.origin.y = location.y - heroClass.imageView.frame.height + 180
+            heroClass.imageView.center.x = location.x
+            return
+        }
+        heroClass.attackTimer.invalidate()
         heroClass.animation.stopAnimation(true)
         if (heroClass.imageView.isAnimating == true) {heroClass.imageView.stopAnimating()}
         heroClass.attackTimer.invalidate()
@@ -367,7 +414,6 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     // very important function - causes every touch during combat to do its thing
     
     @IBAction func combatTap(_ sender: UITapGestureRecognizer) {
-//        var counter = 0
                 for i in 0...3 {
                     print("For Loop \(i+1) Begun")
 //                    let heroRect = activeHeroes[i].imageView.frame
@@ -397,6 +443,10 @@ class GameViewController: UIViewController, UITextFieldDelegate {
                     if (enemyRect.contains(sender.location(in: tapRecognizerView)) && selectedHero.name != MissingHero.name) {   //Checks if the user clicked on an ememy hitbox to attack it
                         print("Enemy selected")
                         let verticalModifier = activeEnemies[i].imageView.frame.origin.y + (activeEnemies[i].imageView.frame.height - 180)
+                        var counter = -1
+                        for j in 0..<currentLevel.enemyLoadTable.count{
+                            if (currentLevel.enemyLoadTable[currentLoadTable][j].name == activeEnemies[i].name) {counter = j}
+                        }
                         if (selectedHero.isMelee == false && selectedHero.name != MissingHero.name) {
                             animateRangedAttack(heroClass: selectedHero, target: activeEnemies[i])
                             print("selected hero is ranged and shooting selected enemy - no movement")
@@ -406,24 +456,18 @@ class GameViewController: UIViewController, UITextFieldDelegate {
                             print("selected hero is healer and does nothing")
                             return
                         }
-//                        else {
-//                            for i in 0..<currentLevel.enemyLoadTable.count{
-//                                if (currentLevel.enemyLoadTable[i].name == activeEnemies[i].name) {counter = i}
-//                            }
-//                            animateAttack(heroClass: selectedHero, target: activeEnemies[i], attackedListPosition: counter)
-//                            return
-//}
+                            
                         else if (selectedHero.imageView.center.x <= activeEnemies[i].imageView.center.x) {
                             selectedHero.isFacingRight = true
                             selectedHero.timerChecker = true
-                            animateMovementPrimary(location: CGPoint(x: activeEnemies[i].imageView.center.x - 3*(activeEnemies[i].imageView.frame.width / 4), y: verticalModifier), heroClass: selectedHero, target: activeEnemies[i], attackedListPosition: i)
+                            animateMovementPrimary(location: CGPoint(x: activeEnemies[i].imageView.center.x - 3*(activeEnemies[i].imageView.frame.width / 4), y: verticalModifier), heroClass: selectedHero, target: activeEnemies[i], attackedListPosition: counter)
                             print("selected hero is melee and moves to attack from the left")
                             return
                         }
                         else {
                             selectedHero.isFacingRight = false
                             selectedHero.timerChecker = true
-                            animateMovementPrimary(location: CGPoint(x: activeEnemies[i].imageView.center.x + 3*(activeEnemies[i].imageView.frame.width / 4), y: verticalModifier), heroClass: selectedHero, target: activeEnemies[i], attackedListPosition: i)
+                            animateMovementPrimary(location: CGPoint(x: activeEnemies[i].imageView.center.x + 3*(activeEnemies[i].imageView.frame.width / 4), y: verticalModifier), heroClass: selectedHero, target: activeEnemies[i], attackedListPosition: counter)
                             print("selected hero is melee and moves to attack from the right")
                             return
                         }
@@ -491,8 +535,7 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     
     func loadTutorial() {
         //armoryStack.isHidden = false
-        activeHeroes[0] = Warrior; activeHeroes[1] = MissingHero
-        activeHeroes[2] = MissingHero; activeHeroes[3] = MissingHero
+        activeHeroes[0] = Warrior
         loadCombatScreen(level: Tutorial)
         loadActiveHeroes(level: Tutorial)
 //        beginCombat()
@@ -503,12 +546,50 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         loadActiveHeroes(level: level)      //loadActiveHeroes sets the currentLevel to the level set by map selection -- map selection has not been implimented since the images have not been made
     }
     
-    private func loadEnemies() {
-        for i in 0...3{
-            activeEnemies[i] = currentLevel.enemyLoadTable[i]
-            if (activeEnemies[i].name != MissingEnemy.name) {
-                activeEnemies[i].imageView.center = CGPoint(x: 500, y: 500)
+//    private func loadEnemies() {
+//        for i in 0...3 {
+//            activeEnemies[i] = currentLevel.enemyLoadTable[i]
+//            if (activeEnemies[i].name != MissingEnemy.name && activeEnemies[i].isMelee == false) {
+//                let xRange = Range(uncheckedBounds: (lower: tapRecognizerView.frame.minX, upper: tapRecognizerView.frame.maxX))
+//                let yRange = Range(uncheckedBounds: (lower: tapRecognizerView.frame.minY + (activeEnemies[i].imageView.frame.height / 2), upper: tapRecognizerView.frame.maxY + (activeEnemies[i].imageView.frame.height / 2)))
+//                let x = CGFloat.random(in: xRange)
+//                let y = CGFloat.random(in: yRange)
+//                activeEnemies[i].imageView.center = CGPoint(x: x, y: y)
+//            }
+//            else if (activeEnemies[i].name != MissingEnemy.name){
+//                let randomY = CGFloat.random(in: Range(uncheckedBounds: (lower: tapRecognizerView.frame.minY + (activeEnemies[i].imageView.frame.height / 2), upper: tapRecognizerView.frame.maxY + (activeEnemies[i].imageView.frame.height / 2))))
+//                let randomNumber = Int.random(in: Range(uncheckedBounds: (lower: 0, upper: 1)))
+//                var randomX = CGFloat(0)
+//                if (randomNumber == 0) {
+//                    randomX = CGFloat.random(in: Range(uncheckedBounds: (lower: tapRecognizerView.frame.minX - 100, upper: tapRecognizerView.frame.minX)))
+//                }
+//                else {
+//                    randomX = CGFloat.random(in: Range(uncheckedBounds: (lower: tapRecognizerView.frame.maxX, upper: tapRecognizerView.frame.maxX + 100)))
+//                }
+//                activeEnemies[i].imageView.center = CGPoint(x: randomX, y: randomY)
+//            }
+//        }
+//    }
+    
+    private func loadEnemy(enemy: Character) {
+        if (enemy.name != MissingEnemy.name && enemy.isMelee == false) {
+            let xRange = Range(uncheckedBounds: (lower: tapRecognizerView.frame.minX, upper: tapRecognizerView.frame.maxX))
+            let yRange = Range(uncheckedBounds: (lower: tapRecognizerView.frame.minY + (enemy.imageView.frame.height / 2), upper: tapRecognizerView.frame.maxY + (enemy.imageView.frame.height / 2)))
+            let x = CGFloat.random(in: xRange)
+            let y = CGFloat.random(in: yRange)
+            enemy.imageView.center = CGPoint(x: x, y: y)
+        }
+        else if (enemy.name != MissingEnemy.name){
+            let randomY = CGFloat.random(in: Range(uncheckedBounds: (lower: tapRecognizerView.frame.minY + (enemy.imageView.frame.height / 2), upper: tapRecognizerView.frame.maxY + (enemy.imageView.frame.height / 2))))
+            let randomNumber = Int.random(in: Range(uncheckedBounds: (lower: 0, upper: 1)))
+            var randomX = CGFloat(0)
+            if (randomNumber == 0) {
+                randomX = CGFloat.random(in: Range(uncheckedBounds: (lower: tapRecognizerView.frame.minX - 100, upper: tapRecognizerView.frame.minX)))
             }
+            else {
+                randomX = CGFloat.random(in: Range(uncheckedBounds: (lower: tapRecognizerView.frame.maxX, upper: tapRecognizerView.frame.maxX + 100)))
+            }
+            enemy.imageView.center = CGPoint(x: randomX, y: randomY)
         }
     }
     
@@ -516,19 +597,23 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     
     private func beginCombat() {
         tapRecognizerView.isHidden = false
-        deSelectButton.isHidden = false
-        loadEnemies()            //Impliment once skeleton has been finished
+        for i in 0..<currentLevel.enemyLoadTable[currentLoadTable].count {
+            loadEnemy(enemy: currentLevel.enemyLoadTable[currentLoadTable][i])
+            activeEnemies[i] = currentLevel.enemyLoadTable[currentLoadTable][i]     //Active enemies' declaration only gives it a max dim of 4
+        }
         // implimentation for map level selection will determine which level object is called here - map has not yet been made so it is not implimented
     }
     
     private func combatEnded(level: Level) {
         tapRecognizerView.isHidden = true
         deSelectButton.isHidden = true
-        resetCombat()
         if (level.complete == true) {
             gold += level.goldReward
-            activeHeroes[0].xp += level.xpReward         //This is only here until more heroes are implimented for xp distribution between heroes - xp is not shared by account it is hero specific
+            for i in 0...3{
+                activeHeroes[i].xp += Int(activeHeroes[i].xpModifier * Double(level.xpReward / activeHeroCount))
+            }
         }
+        resetCombat()
     }
     
     private func displayRewards() {
@@ -538,6 +623,7 @@ class GameViewController: UIViewController, UITextFieldDelegate {
             for i in 0...3 {
                 activeHeroes[i].imageView.center = CGPoint(x: -200, y: -200)
             }
+            print("Warrior XP after combat:  \(Warrior.xp)")
             self.returnToArmory()
         }
     }
@@ -553,27 +639,32 @@ class GameViewController: UIViewController, UITextFieldDelegate {
 //            animateMovementPrimary(location: activeHeroes[i].positionList[i], heroClass: activeHeroes[i])
         }
         if (activeHeroes[0].exists) {
+            activeHeroCount += 1
             activeHeroes[0].imageView.center.x = view.center.x
             activeHeroes[0].imageView.center.y = view.bounds.minY - 100  //sets hero outside left of screen to prep intro animation
             animateMovementPrimary(location: CGPoint(x: view.center.x, y: view.center.y - 100), heroClass: activeHeroes[0]) //animates character to left middle center from outside view on left middle
         }
         if (activeHeroes[1].exists) {
+            activeHeroCount += 1
             activeHeroes[1].imageView.center.x = view.bounds.minX - 100  //follows pattern for top mid
             activeHeroes[1].imageView.center.y = view.center.y
             animateMovementPrimary(location: CGPoint(x: view.center.x - 100, y: view.center.y), heroClass: activeHeroes[1])
 
         }
         if (activeHeroes[2].exists) {
+            activeHeroCount += 1
             activeHeroes[2].imageView.center.x = view.center.x
             activeHeroes[2].imageView.center.y = view.bounds.maxY + 100  //sets hero outside right of screen to prep intro animation
             animateMovementPrimary(location: CGPoint(x: view.center.x, y: view.center.y + 100), heroClass: activeHeroes[2]) //animates character to right middle center from outside view on right middle
 
         }
         if (activeHeroes[3].exists) {
+            activeHeroCount += 1
             activeHeroes[3].imageView.center.x = view.bounds.maxX + 100  //follows pattern for bot mid
             activeHeroes[3].imageView.center.y = view.center.y
             animateMovementPrimary(location: CGPoint(x: view.center.x + 100, y: view.center.y), heroClass: activeHeroes[3])
         }
+        print("Active Hero Count:  \(activeHeroCount)")
         Timer.scheduledTimer(withTimeInterval: (Double(view.bounds.maxX - view.center.x) / minMS), repeats: false) { (_) in
             self.beginCombat()
         }
@@ -591,6 +682,7 @@ class GameViewController: UIViewController, UITextFieldDelegate {
             }
         }
         currentLevel.enemyLoadTable = currentLevel.baseLoadTable
+        activeHeroCount = 0
     }
     
     
