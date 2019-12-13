@@ -580,7 +580,7 @@ class GameViewController: UIViewController, UITextFieldDelegate {
             enemy.imageView.center = CGPoint(x: x, y: y)
         }
         else if (enemy.name != MissingEnemy.name){
-            let randomY = CGFloat.random(in: Range(uncheckedBounds: (lower: tapRecognizerView.frame.minY + (enemy.imageView.frame.height / 2), upper: tapRecognizerView.frame.maxY + (enemy.imageView.frame.height / 2))))
+            let randomY = CGFloat.random(in: Range(uncheckedBounds: (lower: tapRecognizerView.frame.minY + enemy.imageView.frame.height, upper: tapRecognizerView.frame.maxY + enemy.imageView.frame.height)))
             let randomNumber = Int.random(in: Range(uncheckedBounds: (lower: 0, upper: 1)))
             var randomX = CGFloat(0)
             if (randomNumber == 0) {
