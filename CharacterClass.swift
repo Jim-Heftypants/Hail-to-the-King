@@ -14,7 +14,17 @@ class Character {
     var xp = 0
     var level = 1
     var xpModifier = 1.0
-    var timerChecker = false
+    var attackTimerChecker = false
+    var timerCheck = false
+    var abilityTwoExistanceChecker = false
+    var abilityThreeExistanceChecker = false
+    var abilityFourExistanceChecker = false
+    var abilityCheckers: [Bool] = [false, false, false, false]
+    var abilityCooldowns: [Bool] = [false, false, false, false]
+    var abilityTimerTrackers: [Double] = []
+    var abilityNames: [String] = []
+    var heroShouldNotAttack = false
+    
     var isMelee: Bool
     var movementSpeed: Double
     var baseMovementSpeed: Double
@@ -27,8 +37,12 @@ class Character {
     var armorValue: Int
     var baseArmorValue: Int
     var isFacingRight: Bool
-    var target: Character?
+    var target: Character?      //need a way to fix and impliment after constructor call
     var secondaryThreat: Character?
+    
+    lazy var attackTimer = Timer()
+    lazy var movementTimer: Timer = Timer.scheduledTimer(withTimeInterval: 0, repeats: false) { (_) in }
+    lazy var abilityTimers: [Timer] = [movementTimer, movementTimer, movementTimer, movementTimer]
     
     let imageNumberAttack: Int
     let imageNumberMovement: Int
@@ -37,8 +51,6 @@ class Character {
     let isEnemy: Bool
     let isHealer: Bool
     let name: String
-    
-    lazy var attackTimer = Timer()
     
     var talentTree: UIImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     
@@ -51,11 +63,11 @@ class Character {
     var healingImages: [UIImage]? = []
     var animation: UIViewPropertyAnimator
     
-    convenience init (characterName: String, isEnemy: Bool, characterBaseImage: UIImage, imageNumberAttack: Int, imageNumberMovement: Int, movementSpeed: Double, HP: Int, attackSpeed: Double, autoAttackDamage: Int, armorValue: Int, isMelee: Bool, isHealer: Bool) {
-        self.init (characterName: characterName, isEnemy: isEnemy, characterBaseImage: characterBaseImage, imageNumberAttack: imageNumberAttack, imageNumberMovement: imageNumberMovement, imageNumberProjectile: 0, imageNumberHeal: 0, movementSpeed: movementSpeed, HP: HP, attackSpeed: attackSpeed, autoAttackDamage: autoAttackDamage, armorValue: armorValue, isMelee: isMelee, isHealer: isHealer, secondaryBaseImage: nil)
+    convenience init (characterName: String, isEnemy: Bool, characterBaseImage: UIImage, imageNumberAttack: Int, imageNumberMovement: Int, movementSpeed: Double, HP: Int, attackSpeed: Double, autoAttackDamage: Int, armorValue: Int, isMelee: Bool, isHealer: Bool, abilityNames: [String]) {
+        self.init (characterName: characterName, isEnemy: isEnemy, characterBaseImage: characterBaseImage, imageNumberAttack: imageNumberAttack, imageNumberMovement: imageNumberMovement, imageNumberProjectile: 0, imageNumberHeal: 0, movementSpeed: movementSpeed, HP: HP, attackSpeed: attackSpeed, autoAttackDamage: autoAttackDamage, armorValue: armorValue, isMelee: isMelee, isHealer: isHealer, secondaryBaseImage: nil, abilityNames: abilityNames)
     }
     
-    init (characterName: String, isEnemy: Bool, characterBaseImage: UIImage, imageNumberAttack: Int, imageNumberMovement: Int, imageNumberProjectile: Int, imageNumberHeal: Int, movementSpeed: Double, HP: Int, attackSpeed: Double, autoAttackDamage: Int, armorValue: Int, isMelee: Bool, isHealer: Bool, secondaryBaseImage: UIImage?) {
+    init (characterName: String, isEnemy: Bool, characterBaseImage: UIImage, imageNumberAttack: Int, imageNumberMovement: Int, imageNumberProjectile: Int, imageNumberHeal: Int, movementSpeed: Double, HP: Int, attackSpeed: Double, autoAttackDamage: Int, armorValue: Int, isMelee: Bool, isHealer: Bool, secondaryBaseImage: UIImage?, abilityNames: [String]) {
         if (characterName == heroList[0]) {self.exists = false}
         name = characterName
         self.isEnemy = isEnemy
@@ -76,6 +88,7 @@ class Character {
         self.isFacingRight = true
         self.armorValue = armorValue
         self.baseArmorValue = armorValue
+        self.abilityNames = abilityNames
         
         //      all non-init declarations should be made externally when object is declared
         
@@ -132,4 +145,29 @@ class Character {
         autoAttackDamage = baseAutoAttackDamage
         armorValue = baseArmorValue
     }
+    
+    @objc func abilityOne() {
+        if (abilityCooldowns[0] == true || abilityCheckers[0] == true) {return}
+        let currentSelector : Selector = NSSelectorFromString(abilityNames[0])
+        selector.perform(currentSelector)
+    }
+
+    @objc func abilityTwo() {
+        if (abilityCooldowns[1] == true || abilityCheckers[1] == true) {return}
+        let currentSelector : Selector = NSSelectorFromString(abilityNames[1])
+        selector.perform(currentSelector)
+    }
+
+    @objc func abilityThree() {
+        if (abilityCooldowns[2] == true || abilityCheckers[2] == true) {return}
+        let currentSelector : Selector = NSSelectorFromString(abilityNames[2])
+        selector.perform(currentSelector)
+    }
+
+    @objc func abilityFour() {
+        if (abilityCooldowns[3] == true || abilityCheckers[3] == true) {return}
+        let currentSelector : Selector = NSSelectorFromString(abilityNames[3])
+        selector.perform(currentSelector)
+    }
+    
 }
