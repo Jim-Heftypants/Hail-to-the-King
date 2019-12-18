@@ -18,3 +18,4 @@ The land of Aarondel was once a peaceful land centered on commerce, trading with
 12/13 changelog - added a red background to image views to check for accuracy, fixed bugs with melee attack animations, added in melee enemy code, added knockback after being attacked, and changed the Level.enemyLoadTable into a 2D array of Character objects to accurately determine when enemy waves should enter and when combat should close.
 --------------------------------------------------------------------------------------------
 12/17 changelog - added in character unique, custom abilities accessible through buttons. Concise code for calling these unique abilites was done through a "creative solution" entailing conversion between swift code to objc and then back to swift in order to call methods with a string.
+--------------------------------------------------------------------------------------------
