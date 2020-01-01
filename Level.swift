@@ -29,6 +29,9 @@ class Level {
         if (xpReward != nil) {self.xpReward = xpReward!}
         self.enemyLoadTable = enemyLoadTable
         self.baseLoadTable = enemyLoadTable
+        
+        
+        
     }
     
     

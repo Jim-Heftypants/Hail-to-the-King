@@ -16,16 +16,20 @@ class Character {
     var xpModifier = 1.0
     var attackTimerChecker = false
     var timerCheck = false
-    var abilityTwoExistanceChecker = false
-    var abilityThreeExistanceChecker = false
-    var abilityFourExistanceChecker = false
+    var currentTalentPoints = 4
+    var baseTalentPoints = 4
+    var maxTalentPoints: [[Int]] = [[3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3]]    // 3x7
+    var baseMaxTalentPoints: [[Int]] = [[3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3]]
+    var abilityExistanceCheckers: [Bool] = [true, true, false, false]
     var abilityCheckers: [Bool] = [false, false, false, false]
     var abilityCooldowns: [Bool] = [false, false, false, false]
     var abilityTimerTrackers: [Double] = []
     var abilityNames: [String] = []
+    var items: [Item] = [MissingItem, MissingItem, MissingItem, MissingItem]
     var heroShouldNotAttack = false
     
     var isMelee: Bool
+    var equipmentType: Int
     var movementSpeed: Double
     var baseMovementSpeed: Double
     var HP: Int
@@ -63,14 +67,15 @@ class Character {
     var healingImages: [UIImage]? = []
     var animation: UIViewPropertyAnimator
     
-    convenience init (characterName: String, isEnemy: Bool, characterBaseImage: UIImage, imageNumberAttack: Int, imageNumberMovement: Int, movementSpeed: Double, HP: Int, attackSpeed: Double, autoAttackDamage: Int, armorValue: Int, isMelee: Bool, isHealer: Bool, abilityNames: [String]) {
-        self.init (characterName: characterName, isEnemy: isEnemy, characterBaseImage: characterBaseImage, imageNumberAttack: imageNumberAttack, imageNumberMovement: imageNumberMovement, imageNumberProjectile: 0, imageNumberHeal: 0, movementSpeed: movementSpeed, HP: HP, attackSpeed: attackSpeed, autoAttackDamage: autoAttackDamage, armorValue: armorValue, isMelee: isMelee, isHealer: isHealer, secondaryBaseImage: nil, abilityNames: abilityNames)
+    convenience init (characterName: String, isEnemy: Bool, characterBaseImage: UIImage, imageNumberAttack: Int, imageNumberMovement: Int, movementSpeed: Double, HP: Int, attackSpeed: Double, autoAttackDamage: Int, armorValue: Int, isMelee: Bool, isHealer: Bool, abilityNames: [String], equipmentType: Int) {
+        self.init (characterName: characterName, isEnemy: isEnemy, characterBaseImage: characterBaseImage, imageNumberAttack: imageNumberAttack, imageNumberMovement: imageNumberMovement, imageNumberProjectile: 0, imageNumberHeal: 0, movementSpeed: movementSpeed, HP: HP, attackSpeed: attackSpeed, autoAttackDamage: autoAttackDamage, armorValue: armorValue, isMelee: isMelee, isHealer: isHealer, secondaryBaseImage: nil, abilityNames: abilityNames, equipmentType: equipmentType)
     }
     
-    init (characterName: String, isEnemy: Bool, characterBaseImage: UIImage, imageNumberAttack: Int, imageNumberMovement: Int, imageNumberProjectile: Int, imageNumberHeal: Int, movementSpeed: Double, HP: Int, attackSpeed: Double, autoAttackDamage: Int, armorValue: Int, isMelee: Bool, isHealer: Bool, secondaryBaseImage: UIImage?, abilityNames: [String]) {
+    init (characterName: String, isEnemy: Bool, characterBaseImage: UIImage, imageNumberAttack: Int, imageNumberMovement: Int, imageNumberProjectile: Int, imageNumberHeal: Int, movementSpeed: Double, HP: Int, attackSpeed: Double, autoAttackDamage: Int, armorValue: Int, isMelee: Bool, isHealer: Bool, secondaryBaseImage: UIImage?, abilityNames: [String], equipmentType: Int) {
         if (characterName == heroList[0]) {self.exists = false}
         name = characterName
         self.isEnemy = isEnemy
+        self.equipmentType = equipmentType
         self.HP = HP
         self.BaseHP = HP
         self.movementSpeed = movementSpeed
@@ -148,25 +153,25 @@ class Character {
     
     @objc func abilityOne() {
         if (abilityCooldowns[0] == true || abilityCheckers[0] == true) {return}
-        let currentSelector : Selector = NSSelectorFromString(abilityNames[0])
+        let currentSelector: Selector = NSSelectorFromString(abilityNames[0])
         selector.perform(currentSelector)
     }
 
     @objc func abilityTwo() {
         if (abilityCooldowns[1] == true || abilityCheckers[1] == true) {return}
-        let currentSelector : Selector = NSSelectorFromString(abilityNames[1])
+        let currentSelector: Selector = NSSelectorFromString(abilityNames[1])
         selector.perform(currentSelector)
     }
 
     @objc func abilityThree() {
         if (abilityCooldowns[2] == true || abilityCheckers[2] == true) {return}
-        let currentSelector : Selector = NSSelectorFromString(abilityNames[2])
+        let currentSelector: Selector = NSSelectorFromString(abilityNames[2])
         selector.perform(currentSelector)
     }
 
     @objc func abilityFour() {
         if (abilityCooldowns[3] == true || abilityCheckers[3] == true) {return}
-        let currentSelector : Selector = NSSelectorFromString(abilityNames[3])
+        let currentSelector: Selector = NSSelectorFromString(abilityNames[3])
         selector.perform(currentSelector)
     }
     
