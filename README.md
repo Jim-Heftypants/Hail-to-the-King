@@ -19,3 +19,5 @@ The land of Aarondel was once a peaceful land centered on commerce, trading with
 --------------------------------------------------------------------------------------------
 12/17 changelog - added in character unique, custom abilities accessible through buttons. Concise code for calling these unique abilites was done through a "creative solution" entailing conversion between swift code to objc and then back to swift in order to call methods with a string.
 --------------------------------------------------------------------------------------------
+12/31 changelog - implimented base talent selection screen with buttons and draggable item selections
+--------------------------------------------------------------------------------------------
