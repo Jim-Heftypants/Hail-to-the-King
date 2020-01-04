@@ -21,3 +21,5 @@ The land of Aarondel was once a peaceful land centered on commerce, trading with
 --------------------------------------------------------------------------------------------
 12/31 changelog - implimented base talent selection screen with buttons and draggable item selections
 --------------------------------------------------------------------------------------------
+1/3 changelog - big updates to the item screen with dragging and shifting item placements within the inventory and equipping items
+--------------------------------------------------------------------------------------------
