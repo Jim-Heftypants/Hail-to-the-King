@@ -27,22 +27,32 @@ class Character {
     var abilityNames: [String] = []
     var items: [Item] = [MissingItem, MissingItem, MissingItem, MissingItem]
     var heroShouldNotAttack = false
+    var itemImageViews: [UIImageView] = {
+        var views = [placement, placement, placement, placement]
+        for i in 0...3 {
+            views[i] = UIImageView(frame: CGRect(x: 150, y: 220 + 120 * i, width: 95, height: 95))
+            views[i].backgroundColor = .blue
+            views[i].isHidden = true
+        }
+       return views
+    }()
     
     var isMelee: Bool
     var equipmentType: Int
     var movementSpeed: Double
     var baseMovementSpeed: Double
-    var HP: Int
-    var BaseHP: Int
-    var autoAttackDamage: Int
-    var baseAutoAttackDamage: Int
+    var HP: Double
+    var BaseHP: Double
+    var autoAttackDamage: Double
+    var baseAutoAttackDamage: Double
     var attackSpeed: Double
     var baseAttackSpeed: Double
-    var armorValue: Int
-    var baseArmorValue: Int
+    var armorValue: Double
+    var baseArmorValue: Double
     var isFacingRight: Bool
-    var target: Character?      //need a way to fix and impliment after constructor call
+    var target: Character?
     var secondaryThreat: Character?
+    var attributeArray: [Double] = [0, 0, 0, 0]
     
     lazy var attackTimer = Timer()
     lazy var movementTimer: Timer = Timer.scheduledTimer(withTimeInterval: 0, repeats: false) { (_) in }
@@ -67,11 +77,11 @@ class Character {
     var healingImages: [UIImage]? = []
     var animation: UIViewPropertyAnimator
     
-    convenience init (characterName: String, isEnemy: Bool, characterBaseImage: UIImage, imageNumberAttack: Int, imageNumberMovement: Int, movementSpeed: Double, HP: Int, attackSpeed: Double, autoAttackDamage: Int, armorValue: Int, isMelee: Bool, isHealer: Bool, abilityNames: [String], equipmentType: Int) {
+    convenience init (characterName: String, isEnemy: Bool, characterBaseImage: UIImage, imageNumberAttack: Int, imageNumberMovement: Int, movementSpeed: Double, HP: Double, attackSpeed: Double, autoAttackDamage: Double, armorValue: Double, isMelee: Bool, isHealer: Bool, abilityNames: [String], equipmentType: Int) {
         self.init (characterName: characterName, isEnemy: isEnemy, characterBaseImage: characterBaseImage, imageNumberAttack: imageNumberAttack, imageNumberMovement: imageNumberMovement, imageNumberProjectile: 0, imageNumberHeal: 0, movementSpeed: movementSpeed, HP: HP, attackSpeed: attackSpeed, autoAttackDamage: autoAttackDamage, armorValue: armorValue, isMelee: isMelee, isHealer: isHealer, secondaryBaseImage: nil, abilityNames: abilityNames, equipmentType: equipmentType)
     }
     
-    init (characterName: String, isEnemy: Bool, characterBaseImage: UIImage, imageNumberAttack: Int, imageNumberMovement: Int, imageNumberProjectile: Int, imageNumberHeal: Int, movementSpeed: Double, HP: Int, attackSpeed: Double, autoAttackDamage: Int, armorValue: Int, isMelee: Bool, isHealer: Bool, secondaryBaseImage: UIImage?, abilityNames: [String], equipmentType: Int) {
+    init (characterName: String, isEnemy: Bool, characterBaseImage: UIImage, imageNumberAttack: Int, imageNumberMovement: Int, imageNumberProjectile: Int, imageNumberHeal: Int, movementSpeed: Double, HP: Double, attackSpeed: Double, autoAttackDamage: Double, armorValue: Double, isMelee: Bool, isHealer: Bool, secondaryBaseImage: UIImage?, abilityNames: [String], equipmentType: Int) {
         if (characterName == heroList[0]) {self.exists = false}
         name = characterName
         self.isEnemy = isEnemy
@@ -125,7 +135,11 @@ class Character {
             }()
         }
         
-
+        attributeArray[0] = autoAttackDamage
+        attributeArray[1] = armorValue
+        attributeArray[2] = movementSpeed
+        attributeArray[3] = attackSpeed
+        
         self.attackImages = createAllImageArrays(total: imageNumberAttack, characterName: name, animationType: "Attack")
         if (imageNumberMovement != 0) {self.movementImages = self.createAllImageArrays(total: imageNumberMovement, characterName: name, animationType: "Movement")}
         if (imageNumberProjectile != 0) {self.projectileImages = self.createAllImageArrays(total: imageNumberProjectile, characterName: name, animationType: "Projectile")}

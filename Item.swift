@@ -9,9 +9,8 @@
 import UIKit
 
 class Item {
-    let itemName: String
-    let damageValue: Int
-    let imageView: UIImageView
+    let name: String
+    let damageValue: Double
     let buyPrice: Int
     let sellPrice: Int
     let upgradePrice: Int
@@ -22,11 +21,11 @@ class Item {
     let assignedCenter: CGPoint
     
     var itemID = [[0], [0]]
+    var itemButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
     
-    init (itemName: String, damageValue: Int, appearance: UIImage, price: Int, itemLevel: Int, description: String, slotType: Int, equipmentType: Int) {
-        self.itemName = itemName
+    init (name: String, damageValue: Double, price: Int, itemLevel: Int, description: String, slotType: Int, equipmentType: Int) {
+        self.name = name
         self.damageValue = damageValue
-        self.imageView = UIImageView(image: appearance)
         self.buyPrice = price
         self.sellPrice = price/2
         self.upgradePrice = Int(Double(price) * 1.5)
@@ -39,9 +38,15 @@ class Item {
         else if (slotType == 3) {assignedCenter = CGPoint(x: 0, y: 0)}
         else {assignedCenter = CGPoint(x: 0, y: 0)}
         
-        imageView.isHidden = true
-        imageView.frame = CGRect(x: -200, y: -200, width: 75, height: 75)
-        imageView.isUserInteractionEnabled = true
+        //itemButton.setImage(UIImage(named: self.name), for: .normal)      //Re-enable with images for items and delete next line
+        itemButton.isHidden = true
+        itemButton.setImage(UIImage(named: "blackBackground"), for: .normal)
+        itemButton.addTarget(self, action: #selector(buttonTarget), for: .touchUpInside)
     }
+    
+    @objc func buttonTarget() {
+        descriptorLabel.text = self.description
+    }
+    
     
 }

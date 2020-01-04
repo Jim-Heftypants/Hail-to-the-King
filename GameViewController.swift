@@ -32,11 +32,11 @@ var missingTextView: UITextView = {             //Remove once all views are made
 
 let selector = SelectorClass()
 
-let BronzeSword = Item(itemName: "Bronze Sword", damageValue: 2, appearance: UIImage(named: "blackBackground")!, price: 50, itemLevel: 1, description: "A simple bronze sword.", slotType: 1, equipmentType: 1)
-let MissingItem = Item(itemName: "0", damageValue: 0, appearance: UIImage(named: "blackBackground")!, price: 0, itemLevel: 0, description: "", slotType: 0, equipmentType: 0)
+let BronzeSword = Item(name: "Bronze Sword", damageValue: 2, price: 50, itemLevel: 1, description: "A simple bronze sword.", slotType: 1, equipmentType: 1)
+let MissingItem = Item(name: "0", damageValue: 0, price: 0, itemLevel: 0, description: "", slotType: 0, equipmentType: 0)
 
 var MissingHero = Character(characterName: heroList[0], isEnemy: false, characterBaseImage: UIImage(named: "blackBackground")!, imageNumberAttack: 0, imageNumberMovement: 0, movementSpeed: 0.0, HP: 0, attackSpeed: 0.0, autoAttackDamage: 0, armorValue: 0, isMelee: false, isHealer: false, abilityNames: ["missingAbility"], equipmentType: 0)
-var Warrior = Character(characterName: heroList[1], isEnemy: false, characterBaseImage: UIImage(named: "Warrior-1")!, imageNumberAttack: 4, imageNumberMovement: 5, movementSpeed: 350.0, HP: 150, attackSpeed: 3.0, autoAttackDamage: 3, armorValue: 40, isMelee: true, isHealer: false, abilityNames: ["heroicStrike", "shieldWall"], equipmentType: 1)
+var Warrior = Character(characterName: heroList[1], isEnemy: false, characterBaseImage: UIImage(named: "Warrior-1")!, imageNumberAttack: 4, imageNumberMovement: 5, movementSpeed: 350.0, HP: 150, attackSpeed: 3.0, autoAttackDamage: 10, armorValue: 40, isMelee: true, isHealer: false, abilityNames: ["heroicStrike", "shieldWall"], equipmentType: 1)
 
 var MissingEnemy = Character(characterName: enemyList[0], isEnemy: true, characterBaseImage: UIImage(named: "blackBackground")!, imageNumberAttack: 0, imageNumberMovement: 0, movementSpeed: 0.0, HP: 0, attackSpeed: 0.0, autoAttackDamage: 0, armorValue: 0, isMelee: false, isHealer: false, abilityNames: ["missingAbility"], equipmentType: 0)
 var SkeletonArcher1 = Character(characterName: enemyList[1], isEnemy: true, characterBaseImage: UIImage(named: "SkeletonArcher-1")!, imageNumberAttack: 3, imageNumberMovement: 0, imageNumberProjectile: 0, imageNumberHeal: 0, movementSpeed: 0.0, HP: 75, attackSpeed: 1.5, autoAttackDamage: 12, armorValue: 15, isMelee: false, isHealer: false, secondaryBaseImage: nil, abilityNames: ["missingAbility"], equipmentType: 0)
@@ -44,7 +44,7 @@ var SkeletonArcher1 = Character(characterName: enemyList[1], isEnemy: true, char
 var activeHeroes = [MissingHero, MissingHero, MissingHero, MissingHero]
 var activeEnemies: [Character] = [MissingEnemy, MissingEnemy, MissingEnemy, MissingEnemy]
 
-let Tutorial = Level(levelNumber: 0, goldReward: 50, itemReward: MissingItem, xpReward: 100, enemyLoadTable: [[SkeletonArcher1, MissingEnemy, MissingEnemy, MissingEnemy], [MissingEnemy, MissingEnemy]])
+let Tutorial = Level(levelNumber: 0, goldReward: 50, itemReward: BronzeSword, xpReward: 100, enemyLoadTable: [[SkeletonArcher1, MissingEnemy, MissingEnemy, MissingEnemy], [MissingEnemy, MissingEnemy]])
 let MissingLevel = Level(levelNumber: -1, goldReward: 0, itemReward: MissingItem, xpReward: 0, enemyLoadTable: [])
 
 var currentLevel = MissingLevel
@@ -123,39 +123,48 @@ let button = UIButton(frame: CGRect(x: 850, y: 150, width: 150, height: 75))
 }()
 
 var equipmentButtonOne: UIButton = {
-let button = UIButton(frame: CGRect(x: 100, y: 250, width: 125, height: 125))
+let button = UIButton(frame: CGRect(x: 40, y: 40, width: 125, height: 125))
     button.isHidden = true
     button.setImage(UIImage(named: "Warrior-1"), for: .normal)
     return button
 }()
 var equipmentButtonTwo: UIButton = {
-let button = UIButton(frame: CGRect(x: 200, y: 400, width: 125, height: 125))
+let button = UIButton(frame: CGRect(x: 205, y: 40, width: 125, height: 125))
     button.isHidden = true
-    button.setImage(UIImage(named: "Warrior-1"), for: .normal)
+//    button.setImage(UIImage(named: "Warrior-1"), for: .normal)
+    button.backgroundColor = .green
     return button
 }()
 var equipmentButtonThree: UIButton = {
-let button = UIButton(frame: CGRect(x: 200, y: 450, width: 125, height: 125))
+let button = UIButton(frame: CGRect(x: 370, y: 40, width: 125, height: 125))
     button.isHidden = true
-    button.setImage(UIImage(named: "Warrior-1"), for: .normal)
+//    button.setImage(UIImage(named: "Warrior-1"), for: .normal)
+    button.backgroundColor = .green
     return button
 }()
 var equipmentButtonFour: UIButton = {
-let button = UIButton(frame: CGRect(x: 200, y: 600, width: 125, height: 125))
+let button = UIButton(frame: CGRect(x: 535, y: 40, width: 125, height: 125))
     button.isHidden = true
-    button.setImage(UIImage(named: "Warrior-1"), for: .normal)
+//    button.setImage(UIImage(named: "Warrior-1"), for: .normal)
+    button.backgroundColor = .green
     return button
 }()
 
-let itemInventoryFrames: [[UIImageView]] = {
-    var array = [[]]
+let placement = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+var tempPoint = CGPoint(x: 0, y: 0)
+
+let itemImageArray: [[UIImageView]] = {
+    var view = [[placement, placement, placement, placement], [placement, placement, placement, placement], [placement, placement, placement, placement], [placement, placement, placement, placement]]
     for i in 0...3 {
         for j in 0...3 {
-            array[i][j] = UIImageView(frame: CGRect(x: 694 + 32 * i, y: 234 + 32 * j, width: 32, height: 32))
+            view[i][j] = UIImageView(frame: CGRect(x: 780 + 100*j, y: 314 + 100*i, width: 95, height: 95))
+            view[i][j].backgroundColor = .red
+            view[i][j].isHidden = true
         }
     }
-    return []
-}()
+    return view
+    }()
+
 
 var descriptorLabel: UILabel = UILabel(frame: CGRect(x: 20, y: 610, width: 1154, height: 200))
 
@@ -193,9 +202,15 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     fileprivate func makeItemsInteractive() {
         descriptorLabel.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(standardDrag(_:))))
         resetTalentsButton.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(standardDrag(_:))))
-        BronzeSword.imageView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(itemDragged(_:))))
+        self.view.addSubview(BronzeSword.itemButton)
+        addPanRecog(view: BronzeSword.itemButton)
         
         //Add gesture recognizer for each item
+    }
+    
+    fileprivate func addPanRecog(view: UIView) {
+        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(itemDragged(_:))))
+        
     }
     
     fileprivate func loadImageViews() {
@@ -205,6 +220,17 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         descriptorLabel.font = UIFont(name: "Helvetica", size: 40)
         descriptorLabel.textColor = UIColor(cgColor: CGColor(srgbRed: 1.0, green: 0, blue: 0, alpha: 1.0))
         self.view.addSubview(descriptorLabel)
+//        self.view.addSubview(itemStack1)
+//        self.view.addSubview(itemStack2)
+//        self.view.addSubview(itemStack3)
+//        self.view.addSubview(itemStack4)
+//        self.view.addSubview(bigItemStack)
+        for i in 0...3 {
+            self.view.addSubview(Warrior.itemImageViews[i])
+            for j in 0...3 {
+                self.view.addSubview(itemImageArray[i][j])
+            }
+        }
     }
     
     fileprivate func setTargets() {
@@ -243,6 +269,8 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    //MARK: Drag Time
+    
     @objc func standardDrag (_ gesture: UIPanGestureRecognizer) {
         let distance = gesture.translation(in: self.view)
         let label = gesture.view!
@@ -251,57 +279,101 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         gesture.setTranslation(CGPoint.zero, in: self.view)
     }
     
+    var tempHelper = [-1, -1]
     @objc func itemDragged (_ gesture: UIPanGestureRecognizer) {
-        var test = false
-        var slotNumber = 0
         let distance = gesture.translation(in: self.view)
         let view = gesture.view!
         
         view.center = CGPoint(x: view.center.x + distance.x, y: view.center.y + distance.y)
         gesture.setTranslation(CGPoint.zero, in: self.view)
         
-        for i in 0...3 {
-            for j in 0...3 {
-                if (itemArray[i][j].itemName != MissingItem.itemName  && itemArray[i][j].imageView.frame == view.frame) {selectedItem = itemArray[i][j]}         //DO THE THING -- mission accomplished
+        if (gesture.state == UIGestureRecognizer.State.began) {
+            tempPoint = view.center
+            for i in 0...3 {
+                if (selectedHero.itemImageViews[i].center == view.center && selectedHero.items[i].name != MissingItem.name) {
+                    selectedItem = selectedHero.items[i]
+//                    tempPoint = selectedHero.items[i].itemButton.center
+                    tempHelper = [i, -1]
+                    print("Called at 1")
+                    print("tempHelper:  \(tempHelper)")
+                }
+                for j in 0...3 {
+                    if (itemArray[i][j].name != MissingItem.name  && itemArray[i][j].itemButton.center == view.center) {
+                        selectedItem = itemArray[i][j]
+//                        tempPoint = itemImageArray[i][j].center
+                        tempHelper = [i, j]
+                        print("Called at 2")
+                        print("tempHelper:  \(tempHelper)")
+                    }
+                }
             }
+            print("Initialized Temp Point:  \(tempPoint)")
+            
         }
         
         if (gesture.state == UIGestureRecognizer.State.ended) {
-            if (equipmentButtonOne.frame.contains(view.center)) {slotNumber = 1}
-            else if (equipmentButtonTwo.frame.contains(view.center)) {slotNumber = 2}
-            else if (equipmentButtonThree.frame.contains(view.center)) {slotNumber = 3}
-            else if (equipmentButtonFour.frame.contains(view.center)) {slotNumber = 4}
-            
-            if (slotNumber == 0) {       // Make position array 4x4 for items -- this if statement should change item.positionID to the position square
-                for i in 0...3 {
-                    for j in 0...3 {
-                        if (itemInventoryFrames[i][j].frame.contains(view.center)) {view.center = itemInventoryFrames[i][j].center; test = true}
+            for i in 0...3 {
+                if (selectedHero.itemImageViews[i].frame.contains(view.center) && selectedItem.slotType == (i + 1) && selectedHero.equipmentType == selectedItem.equipmentType) {
+                    view.center = selectedHero.itemImageViews[i].center
+                    tempPoint = selectedHero.itemImageViews[i].center
+                    if (tempHelper[1] == -1) {print("No change - executed nothing")}
+                    else {itemArray[tempHelper[0]][tempHelper[1]] = MissingItem
+                        selectedHero.attributeArray[i] -= selectedHero.items[i].damageValue
+                        selectedHero.items[i] = selectedItem
+                        selectedHero.attributeArray[i] += selectedHero.items[i].damageValue
+                        selectedItem.itemButton.frame = selectedHero.itemImageViews[i].frame
+                        print("Item replaced at \(i)")
+                        
                     }
+                    return
                 }
-                if (test == false) {view.center = CGPoint(x: view.center.x - distance.x, y: view.center.y - distance.y)}
-            }
-            else if (selectedHero.equipmentType != selectedItem.equipmentType || slotNumber != selectedItem.slotType) {view.center = CGPoint(x: view.center.x - distance.x, y: view.center.y - distance.y)}
-            else {          //equip the item
-                if (slotNumber == 1) {              // Weapon
-                    selectedHero.autoAttackDamage -= selectedHero.items[0].damageValue
-                    selectedHero.items[0] = selectedItem
-                    selectedHero.autoAttackDamage += selectedItem.damageValue
-                }
-                else if (slotNumber == 2) {        // Armor
-                    selectedHero.armorValue -= selectedHero.items[1].damageValue
-                    selectedHero.items[1] = selectedItem
-                    selectedHero.armorValue += selectedItem.damageValue
-                }
-                else if (slotNumber == 3) {       // Ring
-                    //undecided on what properties rings can have
-                }
-                else if (slotNumber == 4) {       // Trinket
-                    //undecided on what properties trinkets can have
-                }
-            }
-            
+                 for j in 0...3 {
+                     if (itemImageArray[i][j].frame.contains(view.center)) {
+                         view.center = itemImageArray[i][j].center
+                         tempPoint = itemImageArray[i][j].center
+                        if (tempHelper[1] == -1) {
+                            selectedHero.items[tempHelper[0]] = MissingItem
+                            itemArray[i][j] = selectedItem
+                        }
+                        else {
+                            itemArray[i][j] = selectedItem
+                            itemArray[tempHelper[0]][tempHelper[1]] = MissingItem
+                        }
+                        return
+                     }
+                 }
+             }
+            view.center = tempPoint
         }
     }
+//            if (selectedHero.equipmentType != selectedItem.equipmentType || slotNumber != selectedItem.slotType) {selectedItem.itemButton.center = tempPoint}
+//            else {          //equip the item
+//                if (slotNumber == 1) {              // Weapon
+//                    selectedHero.autoAttackDamage -= selectedHero.items[0].damageValue
+//                    selectedHero.items[0] = selectedItem
+//                    selectedHero.autoAttackDamage += selectedItem.damageValue
+//                    selectedItem.itemButton.frame = selectedHero.itemImageViews[0].frame
+//                    tempPoint = selectedHero.itemImageViews[0].center
+//                }
+//                else if (slotNumber == 2) {        // Armor
+//                    selectedHero.armorValue -= selectedHero.items[1].damageValue
+//                    selectedHero.items[1] = selectedItem
+//                    selectedHero.armorValue += selectedItem.damageValue
+//                    selectedItem.itemButton.frame = selectedHero.itemImageViews[1].frame
+//                    tempPoint = selectedHero.itemImageViews[1].center
+//                }
+//                else if (slotNumber == 3) {       // Ring
+//                    //undecided on what properties rings can have
+//                    selectedHero.items[2] = selectedItem
+//                    selectedItem.itemButton.frame = selectedHero.itemImageViews[2].frame
+//                    tempPoint = selectedHero.itemImageViews[2].center
+//                }
+//                else if (slotNumber == 4) {       // Trinket
+//                    //undecided on what properties trinkets can have
+//                    selectedHero.items[3] = selectedItem
+//                    selectedItem.itemButton.frame = selectedHero.itemImageViews[3].frame
+//                    tempPoint = selectedHero.itemImageViews[3].center
+//                }
     
     func loadSavedValues() {
         //savedValues.set(0, forKey: "saveKey")
@@ -360,8 +432,6 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var mapView1: UIImageView!
     @IBOutlet weak var mapView3: UIImageView!
     @IBOutlet weak var activeHeroPortraits: UIImageView!
-    @IBOutlet weak var selectedCharacterArmor: UIImageView!
-    @IBOutlet weak var ownedArmorView: UIImageView!
     @IBOutlet weak var returnButton: UIButton!
     @IBOutlet weak var saveFileOne: UIButton!
     @IBOutlet weak var saveFileTwo: UIButton!
@@ -370,13 +440,7 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var combatBackground: UIImageView!
     @IBOutlet weak var tapRecognizerView: UIView!
     
-    
-    //MARK: Image Animation
-    
-    func testAnimations() {
-        //Add animations in here to test for errors
-        
-    }
+    //MARK: Character Merc'd
     
     private func characterKilled(character: Character, characterListPosition: Int, attacker: Character) {
         character.imageView.stopAnimating()
@@ -423,6 +487,7 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         deSelectButton.isHidden = true
     }
     
+    //MARK: Animate Attack
     
     func animateAttack(heroClass: Character, target: Character, attackedListPosition: Int? = -1) {
         if (target.name == MissingHero.name) {return}
@@ -445,20 +510,20 @@ class GameViewController: UIViewController, UITextFieldDelegate {
             let xDist = heroClass.imageView.center.x - target.imageView.center.x
             let verticalModifier = target.imageView.frame.origin.y + (target.imageView.frame.height - 180)
             let dist = abs(heroClass.imageView.center.x - target.imageView.center.x)+abs(verticalModifier - heroClass.imageView.frame.origin.y + heroClass.imageView.frame.height - 180)
-            print("List Placement :   \(attackedListPosition!)")
-            target.HP -= heroClass.autoAttackDamage
+            target.HP -= (heroClass.autoAttackDamage * ((1/target.armorValue) * 10))
+            print("Target HP  \(target.HP)")
             if (heroClass.armorValue > target.target!.armorValue && heroClass.isEnemy == true) {
                 target.secondaryThreat = target.target
                 target.target = heroClass
             }
             if (heroClass.isFacingRight == true) {
-                target.imageView.center.x += 20
+                target.imageView.center.x += 10
                 if (target.imageView.center.x > self.tapRecognizerView.frame.maxX) {
                     self.animateMovementPrimary(location: CGPoint(x: self.tapRecognizerView.frame.maxX - target.imageView.frame.width / 2, y: target.imageView.frame.origin.y - 180 + target.imageView.frame.height), heroClass: target)
                 }
             }
             else {
-                target.imageView.center.x -= 20
+                target.imageView.center.x -= 10
                 if (target.imageView.center.x < self.tapRecognizerView.frame.minX) {
                     self.animateMovementPrimary(location: CGPoint(x: self.tapRecognizerView.frame.minX + target.imageView.frame.width / 2, y: target.imageView.frame.origin.y - 180 + target.imageView.frame.height), heroClass: target)
                 }
@@ -736,14 +801,50 @@ class GameViewController: UIViewController, UITextFieldDelegate {
 //        beginCombat()
     }
     
-    
-        //MARK: Load/Reset Combat
-    
-    func loadLevel(level: Level) {
-        loadCombatScreen(level: level)
-        loadActiveHeroes(level: level)      //loadActiveHeroes sets the currentLevel to the level set by map selection -- map selection has not been implimented since the images have not been made
-    }
-    
+        //MARK: Load Active Heroes/Enemies
+        
+        private func loadActiveHeroes(level: Level) {
+    //        let xCenter = (view.bounds.maxX - view.bounds.minX) / 2
+    //        let yCenter = (view.bounds.maxY - view.bounds.minY) / 2
+            currentLevel = level
+            var minMS = 0.0
+            for i in 0...3 {
+                self.view.addSubview(activeHeroes[i].imageView)
+                if (activeHeroes[i].secondaryImageView != nil) {self.view.addSubview(activeHeroes[i].secondaryImageView!)}
+                if (activeHeroes[i].movementSpeed >= minMS) {minMS = activeHeroes[i].movementSpeed}
+    //            animateMovementPrimary(location: activeHeroes[i].positionList[i], heroClass: activeHeroes[i])
+            }
+            if (activeHeroes[0].exists) {
+                activeHeroCount += 1
+                activeHeroes[0].imageView.center.x = view.center.x
+                activeHeroes[0].imageView.center.y = view.bounds.minY - 100  //sets hero outside left of screen to prep intro animation
+                animateMovementPrimary(location: CGPoint(x: view.center.x, y: view.center.y - 100), heroClass: activeHeroes[0]) //animates character to left middle center from outside view on left middle
+            }
+            if (activeHeroes[1].exists) {
+                activeHeroCount += 1
+                activeHeroes[1].imageView.center.x = view.bounds.minX - 100  //follows pattern for top mid
+                activeHeroes[1].imageView.center.y = view.center.y
+                animateMovementPrimary(location: CGPoint(x: view.center.x - 100, y: view.center.y), heroClass: activeHeroes[1])
+
+            }
+            if (activeHeroes[2].exists) {
+                activeHeroCount += 1
+                activeHeroes[2].imageView.center.x = view.center.x
+                activeHeroes[2].imageView.center.y = view.bounds.maxY + 100  //sets hero outside right of screen to prep intro animation
+                animateMovementPrimary(location: CGPoint(x: view.center.x, y: view.center.y + 100), heroClass: activeHeroes[2]) //animates character to right middle center from outside view on right middle
+
+            }
+            if (activeHeroes[3].exists) {
+                activeHeroCount += 1
+                activeHeroes[3].imageView.center.x = view.bounds.maxX + 100  //follows pattern for bot mid
+                activeHeroes[3].imageView.center.y = view.center.y
+                animateMovementPrimary(location: CGPoint(x: view.center.x + 100, y: view.center.y), heroClass: activeHeroes[3])
+            }
+            print("Active Hero Count:  \(activeHeroCount)")
+            Timer.scheduledTimer(withTimeInterval: (Double(view.bounds.maxX - view.center.x) / minMS), repeats: false) { (_) in
+                self.beginCombat()
+            }
+        }
     
     private func loadEnemy(enemy: Character) {
         if (enemy.name != MissingEnemy.name && enemy.isMelee == false) {
@@ -769,6 +870,13 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    //MARK: Load Combat/Combat Ended
+    
+    func loadLevel(level: Level) {
+        loadCombatScreen(level: level)
+        loadActiveHeroes(level: level)      //loadActiveHeroes sets the currentLevel to the level set by map selection -- map selection has not been implimented since the images have not been made
+    }
+    
     private func beginCombat() {
         tapRecognizerView.isHidden = false
         for i in 0..<currentLevel.enemyLoadTable[currentLoadTable].count {
@@ -791,9 +899,19 @@ class GameViewController: UIViewController, UITextFieldDelegate {
             }
         }
         if (level.complete == true) {
+            var checker = false
             gold += level.goldReward
-            for i in 0...3{
+            for i in 0...3 {
                 activeHeroes[i].xp += Int(activeHeroes[i].xpModifier * Double(level.xpReward / activeHeroCount))
+                for j in 0...3 {
+                    if (itemArray[i][j].name == MissingItem.name && checker == false) {itemArray[i][j] = level.itemReward
+                        selectedItem = itemArray[i][j]
+                        itemArray[i][j].itemButton.frame = itemImageArray[i][j].frame
+                        checker = true
+                        print("Item Obtained  \(selectedItem.name)")
+                        print("Added at:  \(itemImageArray[i][j].frame)")
+                    }
+                }
             }
         }
         else {
@@ -831,50 +949,6 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    
-    private func loadActiveHeroes(level: Level) {
-//        let xCenter = (view.bounds.maxX - view.bounds.minX) / 2
-//        let yCenter = (view.bounds.maxY - view.bounds.minY) / 2
-        currentLevel = level
-        var minMS = 0.0
-        for i in 0...3 {
-            self.view.addSubview(activeHeroes[i].imageView)
-            if (activeHeroes[i].secondaryImageView != nil) {self.view.addSubview(activeHeroes[i].secondaryImageView!)}
-            if (activeHeroes[i].movementSpeed >= minMS) {minMS = activeHeroes[i].movementSpeed}
-//            animateMovementPrimary(location: activeHeroes[i].positionList[i], heroClass: activeHeroes[i])
-        }
-        if (activeHeroes[0].exists) {
-            activeHeroCount += 1
-            activeHeroes[0].imageView.center.x = view.center.x
-            activeHeroes[0].imageView.center.y = view.bounds.minY - 100  //sets hero outside left of screen to prep intro animation
-            animateMovementPrimary(location: CGPoint(x: view.center.x, y: view.center.y - 100), heroClass: activeHeroes[0]) //animates character to left middle center from outside view on left middle
-        }
-        if (activeHeroes[1].exists) {
-            activeHeroCount += 1
-            activeHeroes[1].imageView.center.x = view.bounds.minX - 100  //follows pattern for top mid
-            activeHeroes[1].imageView.center.y = view.center.y
-            animateMovementPrimary(location: CGPoint(x: view.center.x - 100, y: view.center.y), heroClass: activeHeroes[1])
-
-        }
-        if (activeHeroes[2].exists) {
-            activeHeroCount += 1
-            activeHeroes[2].imageView.center.x = view.center.x
-            activeHeroes[2].imageView.center.y = view.bounds.maxY + 100  //sets hero outside right of screen to prep intro animation
-            animateMovementPrimary(location: CGPoint(x: view.center.x, y: view.center.y + 100), heroClass: activeHeroes[2]) //animates character to right middle center from outside view on right middle
-
-        }
-        if (activeHeroes[3].exists) {
-            activeHeroCount += 1
-            activeHeroes[3].imageView.center.x = view.bounds.maxX + 100  //follows pattern for bot mid
-            activeHeroes[3].imageView.center.y = view.center.y
-            animateMovementPrimary(location: CGPoint(x: view.center.x + 100, y: view.center.y), heroClass: activeHeroes[3])
-        }
-        print("Active Hero Count:  \(activeHeroCount)")
-        Timer.scheduledTimer(withTimeInterval: (Double(view.bounds.maxX - view.center.x) / minMS), repeats: false) { (_) in
-            self.beginCombat()
-        }
-    }
-    
     private func loadCombatScreen(level: Level) {
         //level.combatBackground.isHidden = false         image not yet made
         pauseButton.isHidden = false
@@ -889,15 +963,24 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         mapView1.isHidden = true
         mapView2.isHidden = true
         mapView3.isHidden = true
-        activeHeroPortraits.isHidden = true
-        selectedCharacterArmor.isHidden = true
-        ownedArmorView.isHidden = true
+        activeHeroPortraits.isHidden = true     // Will eventually be deleted
         switchMapRight.isHidden = true
         switchMapLeft.isHidden = true
         armoryStack.isHidden = false
         missingTextView.isHidden = true
         missingTextView.text = "No item images/character portraits have been made yet, thus this screen is uninstalled"
         selectedHero.talentTree.isHidden = true
+        for i in 0...3 {
+            selectedHero.itemImageViews[i].isHidden = true
+            selectedHero.items[i].itemButton.isHidden = true
+            for j in 0...3 {
+                itemImageArray[i][j].isHidden = true
+                itemArray[i][j].itemButton.isHidden = true
+            }
+        }
+        hideItemInventoryButtons()
+        descriptorLabel.isHidden = true
+        descriptorLabel.text = ""
     }
     
      @IBAction func returnToArmory(_ sender: Any) {
@@ -935,25 +1018,37 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     impliment buttons for each level - once map has been created
     */
     
- 
+    fileprivate func hideItemInventoryButtons() {
+        equipmentButtonOne.isHidden = true
+        equipmentButtonTwo.isHidden = true
+        equipmentButtonThree.isHidden = true
+        equipmentButtonFour.isHidden = true
+    }
+    
+    fileprivate func showItemInventoryButtons() {
+        equipmentButtonOne.isHidden = false
+        equipmentButtonTwo.isHidden = false
+        equipmentButtonThree.isHidden = false
+        equipmentButtonFour.isHidden = false
+    }
     
     //MARK: Equipment Screen
     
-
-    
-    fileprivate func openArmorScreen() {
-        armoryStack.isHidden = true
-        activeHeroPortraits.isHidden = false
-        ownedArmorView.isHidden = false
-        selectedHero = activeHeroes[0]
-        returnButton.isHidden = false
-    }
-    
     @IBAction func equipmentScreen(_ sender: UIButton) {
-        openArmorScreen()
-        selectedCharacterArmor.isHidden = false
-//        missingTextView.isHidden = false
+        armoryStack.isHidden = true
+        activeHeroPortraits.isHidden = false     // Will eventually be deleted
+        selectedHero = activeHeroes[0]           // Will eventually be deleted
         returnButton.isHidden = false
+        for i in 0...3 {
+            selectedHero.itemImageViews[i].isHidden = false
+            selectedHero.items[i].itemButton.isHidden = false
+            for j in 0...3 {
+                itemImageArray[i][j].isHidden = false
+                if (itemArray[i][j].name != MissingItem.name) {itemArray[i][j].itemButton.isHidden = false}
+            }
+        }
+        showItemInventoryButtons()
+        descriptorLabel.isHidden = false
     }
     
     
@@ -973,9 +1068,7 @@ class GameViewController: UIViewController, UITextFieldDelegate {
 //        talentButtonTwo.setImage(UIImage(named: "Cleric-1"), for: .normal)
 //        talentButtonTwo.addTarget(self, action: #selector(selectCleric), for: .touchUpInside)
 //        talentButtonTwo.isHidden = false
-        
     }
-    
     
     
     //MARK: Rectuit Screen

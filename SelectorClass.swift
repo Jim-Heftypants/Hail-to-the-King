@@ -45,7 +45,7 @@ class SelectorClass: NSObject {
     
     @objc func shieldWall() {
         print("Shield Wall Clicked")
-        Warrior.armorValue += Int(Double(Warrior.baseArmorValue) * 0.6)
+        Warrior.armorValue += (Warrior.baseArmorValue * 0.6)
         Warrior.abilityCooldowns[1] = true
         
         Warrior.abilityTimers[1] = Timer.scheduledTimer(withTimeInterval: 15.0, repeats: false, block: { (_) in
@@ -54,7 +54,7 @@ class SelectorClass: NSObject {
         })
         // var shieldWallTimer: Timer =
         Timer.scheduledTimer(withTimeInterval: 6.0, repeats: false) { (_) in
-            Warrior.armorValue -= Int(Double(Warrior.baseArmorValue) / 1.6)
+            Warrior.armorValue -= (Warrior.baseArmorValue / 1.6)
             print("Shield Wall Faded")
         }
         
