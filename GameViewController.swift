@@ -42,7 +42,8 @@ var MissingEnemy = Character(characterName: enemyList[0], isEnemy: true, charact
 var SkeletonArcher1 = Character(characterName: enemyList[1], isEnemy: true, characterBaseImage: UIImage(named: "SkeletonArcher-1")!, imageNumberAttack: 3, imageNumberMovement: 0, imageNumberProjectile: 0, imageNumberHeal: 0, movementSpeed: 0.0, HP: 75, attackSpeed: 1.5, autoAttackDamage: 12, armorValue: 15, isMelee: false, isHealer: false, secondaryBaseImage: nil, abilityNames: ["missingAbility"], equipmentType: 0)
 
 var activeHeroes = [MissingHero, MissingHero, MissingHero, MissingHero]
-var activeEnemies: [Character] = [MissingEnemy, MissingEnemy, MissingEnemy, MissingEnemy]
+var activeEnemies = [MissingEnemy, MissingEnemy, MissingEnemy, MissingEnemy]
+var heroArray = [[Warrior, MissingHero, MissingHero], [Warrior, MissingHero, MissingHero], [Warrior, MissingHero, MissingHero], [Warrior, MissingHero, MissingHero]]
 
 let Tutorial = Level(levelNumber: 0, goldReward: 50, itemReward: BronzeSword, xpReward: 100, enemyLoadTable: [[SkeletonArcher1, MissingEnemy, MissingEnemy, MissingEnemy], [MissingEnemy, MissingEnemy]])
 let MissingLevel = Level(levelNumber: -1, goldReward: 0, itemReward: MissingItem, xpReward: 0, enemyLoadTable: [])
@@ -80,29 +81,18 @@ var pauseButton: UIButton = {
     return button
 }()
 
-var talentButtonOne: UIButton = {
-let button = UIButton(frame: CGRect(x: 100, y: 275, width: 75, height: 75))
-    button.isHidden = true
-    button.setImage(UIImage(named: "Warrior-1"), for: .normal)
-    return button
-}()
-var talentButtonTwo: UIButton = {
-let button = UIButton(frame: CGRect(x: 100, y: 375, width: 75, height: 75))
-    button.isHidden = true
-    button.setImage(UIImage(named: "Warrior-1"), for: .normal)
-    return button
-}()
-var talentButtonThree: UIButton = {
-let button = UIButton(frame: CGRect(x: 100, y: 475, width: 75, height: 75))
-    button.isHidden = true
-    button.setImage(UIImage(named: "Warrior-1"), for: .normal)
-    return button
-}()
-var talentButtonFour: UIButton = {
-let button = UIButton(frame: CGRect(x: 200, y: 275, width: 75, height: 75))
-    button.isHidden = true
-    button.setImage(UIImage(named: "Warrior-1"), for: .normal)
-    return button
+var tempButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+var talentButtons: [[UIButton]] = {
+    var button = [[tempButton, tempButton, tempButton], [tempButton, tempButton, tempButton], [tempButton, tempButton, tempButton], [tempButton, tempButton, tempButton]]
+    for i in 0...3 {
+        for j in 0...2 {
+            button[i][j] = UIButton(frame: CGRect(x: 100 + (110 * i), y: 200 + (110 * j), width: 95, height: 95))
+            button[i][j].isHidden = true
+            button[i][j].backgroundColor = .systemTeal
+//            button[i][j].setImage(UIImage(named: "\(heroArray[i][j].name)-1"), for: .normal)      //Re-enable when all images exist
+        }
+    }
+   return button
 }()
 
 var confirmButton: UIButton = {
@@ -170,7 +160,6 @@ var descriptorLabel: UILabel = UILabel(frame: CGRect(x: 20, y: 610, width: 1154,
 
 var selectedHero: Character = MissingHero
 
-
 class GameViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var enterNameField: UITextField!
@@ -187,16 +176,22 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         self.view.addSubview(abilityButtonFour)
         self.view.addSubview(pauseButton)
         pauseButton.addTarget(self, action: #selector(pauseGame), for: .touchUpInside)
-        self.view.addSubview(talentButtonOne)
-        self.view.addSubview(talentButtonTwo)
-        self.view.addSubview(talentButtonThree)
-        self.view.addSubview(talentButtonFour)
+//        self.view.addSubview(talentButtonOne)
+//        self.view.addSubview(talentButtonTwo)
+//        self.view.addSubview(talentButtonThree)
+//        self.view.addSubview(talentButtonFour)
         self.view.addSubview(confirmButton)
         self.view.addSubview(resetTalentsButton)
         self.view.addSubview(equipmentButtonOne)
         self.view.addSubview(equipmentButtonTwo)
         self.view.addSubview(equipmentButtonThree)
         self.view.addSubview(equipmentButtonFour)
+        for i in 0...3 {
+            for j in 0...2 {
+                talentButtons[i][j].addTarget(self, action: #selector(selectHero(_:)), for: .touchUpInside)
+                self.view.addSubview(talentButtons[i][j])
+            }
+        }
     }
     
     fileprivate func makeItemsInteractive() {
@@ -977,10 +972,15 @@ class GameViewController: UIViewController, UITextFieldDelegate {
                 itemImageArray[i][j].isHidden = true
                 itemArray[i][j].itemButton.isHidden = true
             }
+            for j in 0...2 {
+                talentButtons[i][j].isHidden = true
+            }
         }
         hideItemInventoryButtons()
         descriptorLabel.isHidden = true
         descriptorLabel.text = ""
+        resetTalentsButton.isHidden = true
+        confirmButton.isHidden = true
     }
     
      @IBAction func returnToArmory(_ sender: Any) {
@@ -1051,7 +1051,6 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         descriptorLabel.isHidden = false
     }
     
-    
     //MARK: Skill Screen
     @IBAction func skillsScreen(_ sender: UIButton) {
         
@@ -1061,13 +1060,41 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         returnButton.isHidden = false
         screenCounter = 1
         
-        talentButtonOne.setImage(UIImage(named: "Warrior-1"), for: .normal)
-        talentButtonOne.addTarget(self, action: #selector(selectWarrior), for: .touchUpInside)
-        talentButtonOne.isHidden = false
+        for i in 0...3 {
+            for j in 0...2 {
+                talentButtons[i][j].isHidden = false
+            }
+        }
+    }
+    
+    @objc func selectHero(_ sender: UIButton) {
+        for i in 0...3 {
+            for j in 0...2 {
+                if (talentButtons[i][j].frame == sender.frame) {
+                    selectedHero = heroArray[i][j]
+                }
+            }
+        }
+        for i in 0...3 {
+            for j in 0...2 {
+                talentButtons[i][j].removeTarget(self, action: #selector(selectHero), for: .touchUpInside)
+            }
+        }
+        selector.perform(NSSelectorFromString("talentTree\(selectedHero.name)"))
+    }
+    
+    @objc func resetTalents() {
+        selectedHero.currentTalentPoints = selectedHero.baseTalentPoints
+        selectedHero.maxTalentPoints = selectedHero.baseMaxTalentPoints
+        for i in 0...3 {
+            for j in 0...2 {
+                talentButtons[i][j].setTitle("", for: .normal)
+            }
+        }
+        print("Talent points reset!")
+        //          Undo the augments to ability/physical damage/healing and armor and MS -- undo all talents on selected hero
+        //          Impliment once all talents are made
         
-//        talentButtonTwo.setImage(UIImage(named: "Cleric-1"), for: .normal)
-//        talentButtonTwo.addTarget(self, action: #selector(selectCleric), for: .touchUpInside)
-//        talentButtonTwo.isHidden = false
     }
     
     
@@ -1174,29 +1201,6 @@ class GameViewController: UIViewController, UITextFieldDelegate {
 
     }
     
-    @objc func selectWarrior() {
-        selectedHero = Warrior
-        loadTalentButtons()
-    }
-    
-//    @objc func selectCleric() {
-//        selectedHero = Cleric
-//        loadTalentButtons()
-//    }
-    
-    func loadTalentButtons() {          //Need to make selection screen for heroes
-        let currentSelector: Selector = NSSelectorFromString("talentTree\(selectedHero.name)")
-        selector.perform(currentSelector)
-    }
-    
-    @objc func resetTalents() {
-        selectedHero.currentTalentPoints = selectedHero.baseTalentPoints
-        selectedHero.maxTalentPoints = selectedHero.baseMaxTalentPoints
-        
-        //          Undo the augments to ability/physical damage/healing and armor and MS -- undo all talents on selected hero
-        //          Impliment once all talents are made
-        
-    }
     
     
 }
