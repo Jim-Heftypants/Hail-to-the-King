@@ -43,7 +43,8 @@ var SkeletonArcher1 = Character(characterName: enemyList[1], isEnemy: true, char
 
 var activeHeroes = [MissingHero, MissingHero, MissingHero, MissingHero]
 var activeEnemies = [MissingEnemy, MissingEnemy, MissingEnemy, MissingEnemy]
-var heroArray = [[Warrior, MissingHero, MissingHero], [Warrior, MissingHero, MissingHero], [Warrior, MissingHero, MissingHero], [Warrior, MissingHero, MissingHero]]
+var heroArray = [[Warrior, MissingHero, MissingHero], [MissingHero, MissingHero, MissingHero], [MissingHero, MissingHero, MissingHero], [MissingHero, MissingHero, MissingHero]]
+var benchList = [[MissingHero, MissingHero, MissingHero], [MissingHero, MissingHero, MissingHero], [MissingHero, MissingHero, MissingHero], [MissingHero, MissingHero, MissingHero]]
 
 let Tutorial = Level(levelNumber: 0, goldReward: 50, itemReward: BronzeSword, xpReward: 100, enemyLoadTable: [[SkeletonArcher1, MissingEnemy, MissingEnemy, MissingEnemy], [MissingEnemy, MissingEnemy]])
 let MissingLevel = Level(levelNumber: -1, goldReward: 0, itemReward: MissingItem, xpReward: 0, enemyLoadTable: [])
@@ -53,35 +54,26 @@ var currentLevel = MissingLevel
 var selectedItem = MissingItem
 var itemArray = [[MissingItem, MissingItem, MissingItem, MissingItem], [MissingItem, MissingItem, MissingItem, MissingItem], [MissingItem, MissingItem, MissingItem, MissingItem], [MissingItem, MissingItem, MissingItem, MissingItem]]        //  4x4  (16 total item slots)
 
-var abilityButtonOne: UIButton = {
-let button = UIButton(frame: CGRect(x: 20, y: 20, width: 75, height: 75))
-    button.isHidden = true
-    button.setImage(UIImage(named: "Warrior-1"), for: .normal)
-    return button
+
+var tempButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+
+var abilityButtons: [UIButton] = {
+    var buttons = [tempButton, tempButton, tempButton, tempButton]
+    for i in 0...3 {
+        buttons[i] = UIButton(frame: CGRect(x: 20 + (100 * i), y: 20, width: 75, height: 75))
+        buttons[i].isHidden = true
+        buttons[i].setImage(UIImage(named: "Warrior-1"), for: .normal)
+        buttons[i].backgroundColor = .orange
+    }
+   return buttons
 }()
-var abilityButtonTwo: UIButton = {
-    let button = UIButton(frame: CGRect(x: 120, y: 20, width: 75, height: 75))
-    button.isHidden = true
-    button.setImage(UIImage(named: "Warrior-1"), for: .normal)
-    return button
-}()
-var abilityButtonThree: UIButton = {
-    let button = UIButton(frame: CGRect(x: 220, y: 20, width: 75, height: 75))
-    button.isHidden = true
-    return button
-}()
-var abilityButtonFour: UIButton = {
-    let button = UIButton(frame: CGRect(x: 320, y: 20, width: 75, height: 75))
-    button.isHidden = true
-    return button
-}()
+
 var pauseButton: UIButton = {
     let button = UIButton(frame: CGRect(x: 500, y: 20, width: 75, height: 75))
     button.isHidden = true
     return button
 }()
 
-var tempButton = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
 var talentButtons: [[UIButton]] = {
     var button = [[tempButton, tempButton, tempButton], [tempButton, tempButton, tempButton], [tempButton, tempButton, tempButton], [tempButton, tempButton, tempButton]]
     for i in 0...3 {
@@ -93,6 +85,16 @@ var talentButtons: [[UIButton]] = {
         }
     }
    return button
+}()
+
+var equipmentButtons: [UIButton] = {
+    var buttons = [tempButton, tempButton, tempButton, tempButton]
+    for i in 0...3 {
+        buttons[i] = UIButton(frame: CGRect(x: 40 + (165 * i), y: 40, width: 125, height: 125))
+        buttons[i].backgroundColor = .green
+        buttons[i].isHidden = true
+    }
+    return buttons
 }()
 
 var confirmButton: UIButton = {
@@ -109,34 +111,6 @@ let button = UIButton(frame: CGRect(x: 850, y: 150, width: 150, height: 75))
     button.setTitle("Reset Talents", for: .normal)
     button.setTitleColor(UIColor(displayP3Red: 0, green: 1.0, blue: 0, alpha: 1), for: .normal)
     button.backgroundColor = UIColor(displayP3Red: 1.0, green: 0, blue: 0, alpha: 1)
-    return button
-}()
-
-var equipmentButtonOne: UIButton = {
-let button = UIButton(frame: CGRect(x: 40, y: 40, width: 125, height: 125))
-    button.isHidden = true
-    button.setImage(UIImage(named: "Warrior-1"), for: .normal)
-    return button
-}()
-var equipmentButtonTwo: UIButton = {
-let button = UIButton(frame: CGRect(x: 205, y: 40, width: 125, height: 125))
-    button.isHidden = true
-//    button.setImage(UIImage(named: "Warrior-1"), for: .normal)
-    button.backgroundColor = .green
-    return button
-}()
-var equipmentButtonThree: UIButton = {
-let button = UIButton(frame: CGRect(x: 370, y: 40, width: 125, height: 125))
-    button.isHidden = true
-//    button.setImage(UIImage(named: "Warrior-1"), for: .normal)
-    button.backgroundColor = .green
-    return button
-}()
-var equipmentButtonFour: UIButton = {
-let button = UIButton(frame: CGRect(x: 535, y: 40, width: 125, height: 125))
-    button.isHidden = true
-//    button.setImage(UIImage(named: "Warrior-1"), for: .normal)
-    button.backgroundColor = .green
     return button
 }()
 
@@ -170,25 +144,14 @@ class GameViewController: UIViewController, UITextFieldDelegate {
      }
     
     fileprivate func addButtons() {
-        self.view.addSubview(abilityButtonOne)
-        self.view.addSubview(abilityButtonTwo)
-        self.view.addSubview(abilityButtonThree)
-        self.view.addSubview(abilityButtonFour)
         self.view.addSubview(pauseButton)
         pauseButton.addTarget(self, action: #selector(pauseGame), for: .touchUpInside)
-//        self.view.addSubview(talentButtonOne)
-//        self.view.addSubview(talentButtonTwo)
-//        self.view.addSubview(talentButtonThree)
-//        self.view.addSubview(talentButtonFour)
         self.view.addSubview(confirmButton)
         self.view.addSubview(resetTalentsButton)
-        self.view.addSubview(equipmentButtonOne)
-        self.view.addSubview(equipmentButtonTwo)
-        self.view.addSubview(equipmentButtonThree)
-        self.view.addSubview(equipmentButtonFour)
         for i in 0...3 {
+            self.view.addSubview(abilityButtons[i])
+            self.view.addSubview(equipmentButtons[i])
             for j in 0...2 {
-                talentButtons[i][j].addTarget(self, action: #selector(selectHero(_:)), for: .touchUpInside)
                 self.view.addSubview(talentButtons[i][j])
             }
         }
@@ -215,11 +178,6 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         descriptorLabel.font = UIFont(name: "Helvetica", size: 40)
         descriptorLabel.textColor = UIColor(cgColor: CGColor(srgbRed: 1.0, green: 0, blue: 0, alpha: 1.0))
         self.view.addSubview(descriptorLabel)
-//        self.view.addSubview(itemStack1)
-//        self.view.addSubview(itemStack2)
-//        self.view.addSubview(itemStack3)
-//        self.view.addSubview(itemStack4)
-//        self.view.addSubview(bigItemStack)
         for i in 0...3 {
             self.view.addSubview(Warrior.itemImageViews[i])
             for j in 0...3 {
@@ -244,28 +202,12 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         addButtons()
         setTargets()
         makeItemsInteractive()
-       
         
         saveThreeName = "Jimbo"
-        
-        if let view = self.view as! SKView? {
-            // Load the SKScene from 'GameScene.sks'
-//            if let scene = SKScene(fileNamed: "GameScene") {
-//                // Set the scale mode to scale to fit the window
-//                scene.scaleMode = .aspectFill
-//
-//                // Present the scene
-//                view.presentScene(scene)
-//            }
-            view.ignoresSiblingOrder = true
-            
-            view.showsFPS = true
-            view.showsNodeCount = true
-        }
     }
     
-    //MARK: Drag Time
     
+    //MARK: Drag Time
     @objc func standardDrag (_ gesture: UIPanGestureRecognizer) {
         let distance = gesture.translation(in: self.view)
         let label = gesture.view!
@@ -317,7 +259,7 @@ class GameViewController: UIViewController, UITextFieldDelegate {
                         selectedHero.items[i] = selectedItem
                         selectedHero.attributeArray[i] += selectedHero.items[i].damageValue
                         selectedItem.itemButton.frame = selectedHero.itemImageViews[i].frame
-                        print("Item replaced at \(i)")
+                        print("Item replaced at \(i)")          //  Need to figure out what rings/trinkets will influence to be added here (or elsewhere depending on which stats they are)
                         
                     }
                     return
@@ -341,38 +283,9 @@ class GameViewController: UIViewController, UITextFieldDelegate {
             view.center = tempPoint
         }
     }
-//            if (selectedHero.equipmentType != selectedItem.equipmentType || slotNumber != selectedItem.slotType) {selectedItem.itemButton.center = tempPoint}
-//            else {          //equip the item
-//                if (slotNumber == 1) {              // Weapon
-//                    selectedHero.autoAttackDamage -= selectedHero.items[0].damageValue
-//                    selectedHero.items[0] = selectedItem
-//                    selectedHero.autoAttackDamage += selectedItem.damageValue
-//                    selectedItem.itemButton.frame = selectedHero.itemImageViews[0].frame
-//                    tempPoint = selectedHero.itemImageViews[0].center
-//                }
-//                else if (slotNumber == 2) {        // Armor
-//                    selectedHero.armorValue -= selectedHero.items[1].damageValue
-//                    selectedHero.items[1] = selectedItem
-//                    selectedHero.armorValue += selectedItem.damageValue
-//                    selectedItem.itemButton.frame = selectedHero.itemImageViews[1].frame
-//                    tempPoint = selectedHero.itemImageViews[1].center
-//                }
-//                else if (slotNumber == 3) {       // Ring
-//                    //undecided on what properties rings can have
-//                    selectedHero.items[2] = selectedItem
-//                    selectedItem.itemButton.frame = selectedHero.itemImageViews[2].frame
-//                    tempPoint = selectedHero.itemImageViews[2].center
-//                }
-//                else if (slotNumber == 4) {       // Trinket
-//                    //undecided on what properties trinkets can have
-//                    selectedHero.items[3] = selectedItem
-//                    selectedItem.itemButton.frame = selectedHero.itemImageViews[3].frame
-//                    tempPoint = selectedHero.itemImageViews[3].center
-//                }
     
     func loadSavedValues() {
         //savedValues.set(0, forKey: "saveKey")
-        
     }
     
     override var shouldAutorotate: Bool {
@@ -394,8 +307,6 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     var levelNumber = 0
     var activeHeroCount = 0
     var currentLoadTable = 0
-    var screenCounter = 0
-//    var heroCounter = 0
     var mapCoordinate = 0
     var attackTimerChecker = false
     var touchPointX: CGFloat?
@@ -426,7 +337,6 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var mapView2: UIImageView!
     @IBOutlet weak var mapView1: UIImageView!
     @IBOutlet weak var mapView3: UIImageView!
-    @IBOutlet weak var activeHeroPortraits: UIImageView!
     @IBOutlet weak var returnButton: UIButton!
     @IBOutlet weak var saveFileOne: UIButton!
     @IBOutlet weak var saveFileTwo: UIButton!
@@ -600,7 +510,6 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         }
         heroClass.attackTimer.invalidate()
         heroClass.animation.stopAnimation(true)
-//        if (heroClass.imageView.isAnimating == true) {heroClass.imageView.stopAnimating()}
         heroClass.attackTimer.invalidate()
         
         let xDist = Double(abs(location.x - heroClass.imageView.center.x))
@@ -668,11 +577,8 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     @IBAction func combatTap(_ sender: UITapGestureRecognizer) {
 //        let touchedImageView = self.view.hitTest(sender.location(in: tapRecognizerView), with: nil)
         
-        //                              Test Code End
-        
                 for i in 0...3 {
                     print("For Loop \(i+1) Begun")
-//                    let heroRect = activeHeroes[i].imageView.frame
                     let heroRect = CGRect(origin: CGPoint(x: activeHeroes[i].imageView.frame.minX, y: activeHeroes[i].imageView.frame.minY - 180), size: activeHeroes[i].imageView.frame.size)
                     print("set heroRect")
                     if (heroRect.contains(sender.location(in: tapRecognizerView))) {     //Checks if the user clicked on an allied hitbox
@@ -797,7 +703,18 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     }
     
         //MARK: Load Active Heroes/Enemies
-        
+    let openingPlacements: [[CGPoint]] = {
+        let point1 = CGPoint(x: 597, y: -100)
+        let point2 = CGPoint(x: -100, y: 417)
+        let point3 = CGPoint(x: 597, y: 934)
+        let point4 = CGPoint(x: 1294, y: 417)
+        let point5 = CGPoint(x: 597, y: 317)
+        let point6 = CGPoint(x: 497, y: 417)
+        let point7 = CGPoint(x: 597, y: 517)
+        let point8 = CGPoint(x: 697, y: 417)
+        let points = [[point1, point2, point3, point4], [point5, point6, point7, point8]]
+       return points
+    }()
         private func loadActiveHeroes(level: Level) {
     //        let xCenter = (view.bounds.maxX - view.bounds.minX) / 2
     //        let yCenter = (view.bounds.maxY - view.bounds.minY) / 2
@@ -807,33 +724,13 @@ class GameViewController: UIViewController, UITextFieldDelegate {
                 self.view.addSubview(activeHeroes[i].imageView)
                 if (activeHeroes[i].secondaryImageView != nil) {self.view.addSubview(activeHeroes[i].secondaryImageView!)}
                 if (activeHeroes[i].movementSpeed >= minMS) {minMS = activeHeroes[i].movementSpeed}
-    //            animateMovementPrimary(location: activeHeroes[i].positionList[i], heroClass: activeHeroes[i])
             }
-            if (activeHeroes[0].exists) {
-                activeHeroCount += 1
-                activeHeroes[0].imageView.center.x = view.center.x
-                activeHeroes[0].imageView.center.y = view.bounds.minY - 100  //sets hero outside left of screen to prep intro animation
-                animateMovementPrimary(location: CGPoint(x: view.center.x, y: view.center.y - 100), heroClass: activeHeroes[0]) //animates character to left middle center from outside view on left middle
-            }
-            if (activeHeroes[1].exists) {
-                activeHeroCount += 1
-                activeHeroes[1].imageView.center.x = view.bounds.minX - 100  //follows pattern for top mid
-                activeHeroes[1].imageView.center.y = view.center.y
-                animateMovementPrimary(location: CGPoint(x: view.center.x - 100, y: view.center.y), heroClass: activeHeroes[1])
-
-            }
-            if (activeHeroes[2].exists) {
-                activeHeroCount += 1
-                activeHeroes[2].imageView.center.x = view.center.x
-                activeHeroes[2].imageView.center.y = view.bounds.maxY + 100  //sets hero outside right of screen to prep intro animation
-                animateMovementPrimary(location: CGPoint(x: view.center.x, y: view.center.y + 100), heroClass: activeHeroes[2]) //animates character to right middle center from outside view on right middle
-
-            }
-            if (activeHeroes[3].exists) {
-                activeHeroCount += 1
-                activeHeroes[3].imageView.center.x = view.bounds.maxX + 100  //follows pattern for bot mid
-                activeHeroes[3].imageView.center.y = view.center.y
-                animateMovementPrimary(location: CGPoint(x: view.center.x + 100, y: view.center.y), heroClass: activeHeroes[3])
+            for i in 0...3 {
+                if (activeHeroes[i].name != MissingHero.name) {
+                    activeHeroCount += 1
+                    activeHeroes[i].imageView.center = openingPlacements[0][i]
+                    animateMovementPrimary(location: openingPlacements[1][i], heroClass: activeHeroes[i])
+                }
             }
             print("Active Hero Count:  \(activeHeroCount)")
             Timer.scheduledTimer(withTimeInterval: (Double(view.bounds.maxX - view.center.x) / minMS), repeats: false) { (_) in
@@ -884,11 +781,8 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     private func combatEnded(level: Level) {
         tapRecognizerView.isHidden = true
         deSelectButton.isHidden = true
-        abilityButtonOne.isHidden = true
-        abilityButtonTwo.isHidden = true
-        abilityButtonThree.isHidden = true
-        abilityButtonFour.isHidden = true
         for i in 0...3 {
+            abilityButtons[i].isHidden = true
             for j in 0..<activeHeroes[i].abilityTimers.count {
                 activeHeroes[i].abilityTimers[j].invalidate()
             }
@@ -923,7 +817,7 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         pauseButton.isHidden = true
         for i in 0...3{
             activeHeroes[i].reset()
-            if (activeHeroes[i].exists) {
+            if (activeHeroes[i].name != MissingHero.name) {
                 animateMovementPrimary(location: CGPoint(x: (view.center.x - CGFloat(150 - (i * 100))), y: view.center.y), heroClass: activeHeroes[i], combatEnded: true)
             }
         }
@@ -958,7 +852,6 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         mapView1.isHidden = true
         mapView2.isHidden = true
         mapView3.isHidden = true
-        activeHeroPortraits.isHidden = true     // Will eventually be deleted
         switchMapRight.isHidden = true
         switchMapLeft.isHidden = true
         armoryStack.isHidden = false
@@ -966,17 +859,22 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         missingTextView.text = "No item images/character portraits have been made yet, thus this screen is uninstalled"
         selectedHero.talentTree.isHidden = true
         for i in 0...3 {
+            equipmentButtons[i].isHidden = true
+            equipmentButtons[i].removeTarget(self, action: #selector(swapActiveHeroes(_:)), for: .touchUpInside)
             selectedHero.itemImageViews[i].isHidden = true
             selectedHero.items[i].itemButton.isHidden = true
             for j in 0...3 {
                 itemImageArray[i][j].isHidden = true
                 itemArray[i][j].itemButton.isHidden = true
             }
-            for j in 0...2 {
-                talentButtons[i][j].isHidden = true
+            for o in 0...2 {
+                talentButtons[i][o].removeTarget(selector, action: Selector("\(selectedHero.name)Talent\((i * 4) + o)"), for: .touchUpInside)
+                talentButtons[i][o].removeTarget(self, action: #selector(swapActiveHeroes(_:)), for: .touchUpInside)
+                talentButtons[i][o].backgroundColor = .systemTeal
+                talentButtons[i][o].isHidden = true
+                talentButtons[i][o].setTitle("", for: .normal)
             }
         }
-        hideItemInventoryButtons()
         descriptorLabel.isHidden = true
         descriptorLabel.text = ""
         resetTalentsButton.isHidden = true
@@ -1018,28 +916,15 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     impliment buttons for each level - once map has been created
     */
     
-    fileprivate func hideItemInventoryButtons() {
-        equipmentButtonOne.isHidden = true
-        equipmentButtonTwo.isHidden = true
-        equipmentButtonThree.isHidden = true
-        equipmentButtonFour.isHidden = true
-    }
-    
-    fileprivate func showItemInventoryButtons() {
-        equipmentButtonOne.isHidden = false
-        equipmentButtonTwo.isHidden = false
-        equipmentButtonThree.isHidden = false
-        equipmentButtonFour.isHidden = false
-    }
-    
     //MARK: Equipment Screen
     
     @IBAction func equipmentScreen(_ sender: UIButton) {
         armoryStack.isHidden = true
-        activeHeroPortraits.isHidden = false     // Will eventually be deleted
         selectedHero = activeHeroes[0]           // Will eventually be deleted
         returnButton.isHidden = false
         for i in 0...3 {
+            equipmentButtons[i].isHidden = false
+            if (activeHeroes[i].name != MissingHero.name) {equipmentButtons[i].setImage(activeHeroes[i].imageView.image, for: .normal)}
             selectedHero.itemImageViews[i].isHidden = false
             selectedHero.items[i].itemButton.isHidden = false
             for j in 0...3 {
@@ -1047,37 +932,31 @@ class GameViewController: UIViewController, UITextFieldDelegate {
                 if (itemArray[i][j].name != MissingItem.name) {itemArray[i][j].itemButton.isHidden = false}
             }
         }
-        showItemInventoryButtons()
         descriptorLabel.isHidden = false
     }
     
     //MARK: Skill Screen
     @IBAction func skillsScreen(_ sender: UIButton) {
-        
-        //the full image container of all hero's hasn't been made yet - impliment selection screen once images are made
-        
         armoryStack.isHidden = true
         returnButton.isHidden = false
-        screenCounter = 1
-        
         for i in 0...3 {
             for j in 0...2 {
+                talentButtons[i][j].setTitle(heroArray[i][j].name, for: .normal)
+                talentButtons[i][j].addTarget(self, action: #selector(selectHero(_:)), for: .touchUpInside)
                 talentButtons[i][j].isHidden = false
             }
         }
     }
     
+    
     @objc func selectHero(_ sender: UIButton) {
         for i in 0...3 {
             for j in 0...2 {
+                talentButtons[i][j].removeTarget(self, action: #selector(selectHero(_:)), for: .touchUpInside)
                 if (talentButtons[i][j].frame == sender.frame) {
                     selectedHero = heroArray[i][j]
+                    print("Selected Hero:  \(selectedHero.name)")
                 }
-            }
-        }
-        for i in 0...3 {
-            for j in 0...2 {
-                talentButtons[i][j].removeTarget(self, action: #selector(selectHero), for: .touchUpInside)
             }
         }
         selector.perform(NSSelectorFromString("talentTree\(selectedHero.name)"))
@@ -1088,7 +967,7 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         selectedHero.maxTalentPoints = selectedHero.baseMaxTalentPoints
         for i in 0...3 {
             for j in 0...2 {
-                talentButtons[i][j].setTitle("", for: .normal)
+                talentButtons[i][j].setTitle("0", for: .normal)
             }
         }
         print("Talent points reset!")
@@ -1110,53 +989,94 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    
+    var heroCount = 0
     //MARK: Heroes Screen
     @IBAction func heroesScreen(_ sender: UIButton) {
-        
-        //the full image container of all hero's hasn't been made yet - impliment selection screen once images are made
-        
+        for i in 0...3 {
+            if (activeHeroes[i].name != MissingHero.name) {heroCount += 1; print(heroCount)}
+        }
         armoryStack.isHidden = true
         returnButton.isHidden = false
-//        screenCounter = 2
-//        leadCastPortraitStack.isHidden = false
-//        activeHeroPortraits.isHidden = false
-        missingTextView.isHidden = false
+        for i in 0...3 {
+            equipmentButtons[i].addTarget(self, action: #selector(swapActiveHeroes(_:)), for: .touchUpInside)
+            equipmentButtons[i].isHidden = false
+            if (activeHeroes[i].name != MissingHero.name) {equipmentButtons[i].setImage(activeHeroes[i].imageView.image, for: .normal); print("EYYYYY")}
+            for j in 0...2 {
+                talentButtons[i][j].addTarget(self, action: #selector(swapActiveHeroes(_:)), for: .touchUpInside)
+                talentButtons[i][j].isHidden = false
+                if (benchList[i][j].name != MissingHero.name) {talentButtons[i][j].setImage(benchList[i][j].imageView.image, for: .normal); print("AYYYYY")}
+            }
+        }
     }
+    
+    @objc func swapActiveHeroes(_ sender: UIButton) {
+        for i in 0...3 {
+            if (equipmentButtons[i].frame == sender.frame) {
+                selectedHero = activeHeroes[i]
+                if (heroCount == 1 || selectedHero.name == MissingHero.name) {print("HA Got'em"); return}
+                equipmentButtons[i].removeTarget(self, action: #selector(swapActiveHeroes(_:)), for: .touchUpInside)
+                equipmentButtons[i].setImage(UIImage(named: "blackBackground"), for: .normal)
+                activeHeroes[i] = MissingHero
+                heroCount -= 1
+                for o in 0...3 {
+                    for l in 0...2 {
+                        if (benchList[o][l].name == MissingHero.name) {
+                            benchList[o][l] = selectedHero
+                            talentButtons[o][l].addTarget(self, action: #selector(swapActiveHeroes(_:)), for: .touchUpInside)
+                            talentButtons[o][l].setImage(selectedHero.imageView.image, for: .normal)
+                            return
+                        }
+                    }
+                }
+                print("This is not correct")
+                return
+            }
+            for j in 0...2 {
+                if (talentButtons[i][j].frame == sender.frame) {
+                    selectedHero = benchList[i][j]
+                    if (heroCount == 4 || selectedHero.name == MissingHero.name) {print("NOPE"); return}
+                    talentButtons[i][j].removeTarget(self, action: #selector(swapActiveHeroes(_:)), for: .touchUpInside)
+                    talentButtons[i][j].setImage(UIImage(named: "blackBackground"), for: .normal)
+                    benchList[i][j] = MissingHero
+                    heroCount += 1
+                    for o in 0...3 {
+                        if (activeHeroes[o].name == MissingHero.name) {
+                            activeHeroes[o] = selectedHero
+                            equipmentButtons[o].addTarget(self, action: #selector(swapActiveHeroes(_:)), for: .touchUpInside)
+                            equipmentButtons[o].setImage(selectedHero.imageView.image, for: .normal)
+                            return
+                        }
+                    }
+                    print("Buddy... Waalk")
+                    return
+                }
+            }
+        }
+    }
+    
+    
+    //      The following functions need to be moved for readability
     
     @IBAction func deSelectActiveHero(_ sender: Any) {
         selectedHero = MissingHero
         deSelectButton.isHidden = true
-        abilityButtonOne.isHidden = true
-        abilityButtonTwo.isHidden = true
-        abilityButtonThree.isHidden = true
-        abilityButtonFour.isHidden = true
+        for i in 0...3 {
+            abilityButtons[i].isHidden = true
+        }
     }
     
     
     private func loadAbilityButtons(heroClass: Character) {
-
         if (priorClass.name != MissingHero.name) {
-            if (priorClass.abilityExistanceCheckers[0] == true) {abilityButtonOne.removeTarget(heroClass, action: #selector(heroClass.abilityOne), for: .touchUpInside)}
-            if (priorClass.abilityExistanceCheckers[1] == true) {abilityButtonTwo.removeTarget(heroClass, action: #selector(heroClass.abilityTwo), for: .touchUpInside)}
-            if (priorClass.abilityExistanceCheckers[2] == true) {abilityButtonThree.removeTarget(heroClass, action: #selector(heroClass.abilityThree), for: .touchUpInside)}
-            if (priorClass.abilityExistanceCheckers[3] == true) {abilityButtonFour.removeTarget(heroClass, action: #selector(heroClass.abilityFour), for: .touchUpInside)}
+            for i in 0...3 {
+                if (priorClass.abilityExistanceCheckers[i] == true) {abilityButtons[i].removeTarget(heroClass, action: Selector("ability\(i + 1)"), for: .touchUpInside)}
+            }
         }
-        if (heroClass.abilityExistanceCheckers[0] == true) {
-            abilityButtonOne.isHidden = false
-            abilityButtonOne.addTarget(heroClass, action: #selector(heroClass.abilityOne), for: .touchUpInside)
-        }
-        if (heroClass.abilityExistanceCheckers[1] == true) {
-            abilityButtonTwo.isHidden = false
-            abilityButtonTwo.addTarget(heroClass, action: #selector(heroClass.abilityTwo), for: .touchUpInside)
-        }
-        if (heroClass.abilityExistanceCheckers[2] == true) {
-            abilityButtonThree.isHidden = false
-            abilityButtonThree.addTarget(heroClass, action: #selector(heroClass.abilityThree), for: .touchUpInside)
-        }
-        if (heroClass.abilityExistanceCheckers[3] == true) {
-            abilityButtonFour.isHidden = false
-            abilityButtonFour.addTarget(heroClass, action: #selector(heroClass.abilityFour), for: .touchUpInside)
+        for i in 0...3 {
+            if (heroClass.abilityExistanceCheckers[i] == true) {
+                abilityButtons[i].isHidden = false
+                abilityButtons[i].addTarget(heroClass, action: Selector("ability\(i + 1)"), for: .touchUpInside)
+            }
         }
         priorClass = heroClass
         print("Ability Buttons have been loaded for selected hero")
@@ -1198,7 +1118,6 @@ class GameViewController: UIViewController, UITextFieldDelegate {
                 }
             }
         }
-
     }
     
     

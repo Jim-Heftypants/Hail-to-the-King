@@ -11,6 +11,7 @@ import Foundation
 class SelectorClass: NSObject {
     
     var priorTarget = ""
+    var index = [-1, -1]
     
     //MARK: Abilities
     
@@ -70,9 +71,11 @@ class SelectorClass: NSObject {
                 talentButtons[i][j].isHidden = false
                 talentButtons[i][j].backgroundColor = .purple
                 talentButtons[i][j].addTarget(self, action: Selector("\(selectedHero.name)Talent\((i * 3) + j)"), for: .touchUpInside)
+                talentButtons[i][j].setTitle(String(selectedHero.baseMaxTalentPoints[i][j] - selectedHero.maxTalentPoints[i][j]), for: .normal)
                 print("Selector: \(selectedHero.name)Talent\((i*3)+j)")
             }
         }
+        confirmButton.addTarget(self, action: #selector(confirmAction), for: .touchUpInside)
         confirmButton.isHidden = false
         resetTalentsButton.isHidden = false
         descriptorLabel.isHidden = false
@@ -87,54 +90,40 @@ class SelectorClass: NSObject {
     
     @objc func WarriorTalent0() {
         print("Button Clicked! - 1")
-        descriptorLabel.text = "The First Warrior Ability"
-        if (Warrior.currentTalentPoints <= 0){return}
-        confirmButton.isHighlighted = true
-        confirmButton.removeTarget(self, action: NSSelectorFromString(priorTarget), for: .touchUpInside)
+        descriptorLabel.text = "The First Warrior Talent"
         priorTarget = "WarriorTalent0Action"
-        confirmButton.addTarget(self, action: NSSelectorFromString(priorTarget), for: .touchUpInside)
+        index = [0, 0]
     }
     
     @objc func WarriorTalent0Action() {           //Do the talent button action
-        print("talent one action called successfully")
-        if (Warrior.maxTalentPoints[0][0] <= 0 || Warrior.currentTalentPoints <= 0) {
-            confirmButton.isHighlighted = false
-            print("all available talent points in this talent are spent")
-            if (Warrior.currentTalentPoints <= 0) {print("All Talent points Spent")}
-            return
-        }
-        Warrior.currentTalentPoints -= 1
-        Warrior.maxTalentPoints[0][0] -= 1
-        talentButtons[0][0].setTitle(String(Warrior.baseMaxTalentPoints[0][0] - Warrior.maxTalentPoints[0][0]), for: .normal)
-        print("Points spent in this slot  \(Warrior.baseMaxTalentPoints[0][0] - Warrior.maxTalentPoints[0][0])")
+        
     }
     
     @objc func WarriorTalent1() {
         print("Button Clicked! - 2")
-        descriptorLabel.text = "The Second Warrior Ability"
-        if (Warrior.currentTalentPoints <= 0){return}
-        confirmButton.isHighlighted = true
-        confirmButton.removeTarget(self, action: NSSelectorFromString(priorTarget), for: .touchUpInside)
+        descriptorLabel.text = "The Second Warrior Talent"
         priorTarget = "WarriorTalent1Action"
-        confirmButton.addTarget(self, action: NSSelectorFromString(priorTarget), for: .touchUpInside)
-        
+        index = [0, 1]
     }
     
     @objc func WarriorTalent1Action() {           //Do the talent button action
-        print("talent two action called successfully")
-        if (Warrior.maxTalentPoints[0][1] <= 0 || Warrior.currentTalentPoints <= 0) {
-            confirmButton.isHighlighted = false
-            print("all available talent points in this talent are spent")
-            if (Warrior.currentTalentPoints <= 0) {print("All Talent points Spent")}
-            return
-        }
-        Warrior.currentTalentPoints -= 1
-        Warrior.maxTalentPoints[0][1] -= 1
-        talentButtons[0][1].setTitle(String(Warrior.baseMaxTalentPoints[0][1] - Warrior.maxTalentPoints[0][1]), for: .normal)
-        print("Points spent in this slot  \(Warrior.baseMaxTalentPoints[0][1] - Warrior.maxTalentPoints[0][1])")
+        
     }
     
-    
+    @objc func confirmAction() {
+        if (index[0] == -1 || index[1] == -1) {return}
+        print("talent \((index[0] * 3) + index[1]) action called successfully")
+        if (selectedHero.maxTalentPoints[index[0]][index[1]] <= 0 || selectedHero.currentTalentPoints <= 0) {
+            print("all available talent points in this talent are spent")
+            if (selectedHero.currentTalentPoints <= 0) {print("All Talent points Spent")}
+            return
+        }
+        selectedHero.currentTalentPoints -= 1
+        selectedHero.maxTalentPoints[index[0]][index[1]] -= 1
+        talentButtons[index[0]][index[1]].setTitle(String(selectedHero.baseMaxTalentPoints[index[0]][index[1]] - selectedHero.maxTalentPoints[index[0]][index[1]]), for: .normal)
+        print("Points spent in this slot  \(selectedHero.baseMaxTalentPoints[index[0]][index[1]] - selectedHero.maxTalentPoints[index[0]][index[1]])")
+        selector.perform(Selector(priorTarget))
+    }
     
     @objc func talentTreeCleric() {
         

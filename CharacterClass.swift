@@ -9,7 +9,6 @@
 import UIKit
 
 class Character {
-    var exists = true
     var canAttack = true
     var xp = 0
     var level = 1
@@ -30,7 +29,7 @@ class Character {
     var itemImageViews: [UIImageView] = {
         var views = [placement, placement, placement, placement]
         for i in 0...3 {
-            views[i] = UIImageView(frame: CGRect(x: 150, y: 220 + 120 * i, width: 95, height: 95))
+            views[i] = UIImageView(frame: CGRect(x: 100, y: 220 + 120 * i, width: 95, height: 95))
             views[i].backgroundColor = .blue
             views[i].isHidden = true
         }
@@ -82,7 +81,6 @@ class Character {
     }
     
     init (characterName: String, isEnemy: Bool, characterBaseImage: UIImage, imageNumberAttack: Int, imageNumberMovement: Int, imageNumberProjectile: Int, imageNumberHeal: Int, movementSpeed: Double, HP: Double, attackSpeed: Double, autoAttackDamage: Double, armorValue: Double, isMelee: Bool, isHealer: Bool, secondaryBaseImage: UIImage?, abilityNames: [String], equipmentType: Int) {
-        if (characterName == heroList[0]) {self.exists = false}
         name = characterName
         self.isEnemy = isEnemy
         self.equipmentType = equipmentType
@@ -165,25 +163,25 @@ class Character {
         armorValue = baseArmorValue
     }
     
-    @objc func abilityOne() {
+    @objc func ability1() {
         if (abilityCooldowns[0] == true || abilityCheckers[0] == true) {return}
         let currentSelector: Selector = NSSelectorFromString(abilityNames[0])
         selector.perform(currentSelector)
     }
 
-    @objc func abilityTwo() {
+    @objc func ability2() {
         if (abilityCooldowns[1] == true || abilityCheckers[1] == true) {return}
         let currentSelector: Selector = NSSelectorFromString(abilityNames[1])
         selector.perform(currentSelector)
     }
 
-    @objc func abilityThree() {
+    @objc func ability3() {
         if (abilityCooldowns[2] == true || abilityCheckers[2] == true) {return}
         let currentSelector: Selector = NSSelectorFromString(abilityNames[2])
         selector.perform(currentSelector)
     }
 
-    @objc func abilityFour() {
+    @objc func ability4() {
         if (abilityCooldowns[3] == true || abilityCheckers[3] == true) {return}
         let currentSelector: Selector = NSSelectorFromString(abilityNames[3])
         selector.perform(currentSelector)
