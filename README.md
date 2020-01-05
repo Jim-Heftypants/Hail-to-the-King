@@ -23,3 +23,5 @@ The land of Aarondel was once a peaceful land centered on commerce, trading with
 --------------------------------------------------------------------------------------------
 1/3 changelog - big updates to the item screen with dragging and shifting item placements within the inventory and equipping items - also updated talent UI and shortened code in many areas
 --------------------------------------------------------------------------------------------
+1/4 changelog - added the Heroes Screen which allows the player to switch around which heroes are active, also minor UI updates and bug fixes.
+--------------------------------------------------------------------------------------------
