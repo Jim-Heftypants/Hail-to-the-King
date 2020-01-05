@@ -73,6 +73,22 @@ var pauseButton: UIButton = {
     button.isHidden = true
     return button
 }()
+var confirmButton: UIButton = {
+let button = UIButton(frame: CGRect(x: 850, y: 50, width: 150, height: 75))
+    button.isHidden = true
+    button.setTitle("Confirm Talent", for: .normal)
+    button.setTitleColor(UIColor(displayP3Red: 0, green: 1.0, blue: 0, alpha: 1), for: .normal)
+    button.backgroundColor = UIColor(displayP3Red: 0, green: 0, blue: 1.0, alpha: 1)
+    return button
+}()
+var resetTalentsButton: UIButton = {
+let button = UIButton(frame: CGRect(x: 850, y: 150, width: 150, height: 75))
+    button.isHidden = true
+    button.setTitle("Reset Talents", for: .normal)
+    button.setTitleColor(UIColor(displayP3Red: 0, green: 1.0, blue: 0, alpha: 1), for: .normal)
+    button.backgroundColor = UIColor(displayP3Red: 1.0, green: 0, blue: 0, alpha: 1)
+    return button
+}()
 
 var talentButtons: [[UIButton]] = {
     var button = [[tempButton, tempButton, tempButton], [tempButton, tempButton, tempButton], [tempButton, tempButton, tempButton], [tempButton, tempButton, tempButton]]
@@ -97,23 +113,6 @@ var equipmentButtons: [UIButton] = {
     return buttons
 }()
 
-var confirmButton: UIButton = {
-let button = UIButton(frame: CGRect(x: 850, y: 50, width: 150, height: 75))
-    button.isHidden = true
-    button.setTitle("Confirm Talent", for: .normal)
-    button.setTitleColor(UIColor(displayP3Red: 0, green: 1.0, blue: 0, alpha: 1), for: .normal)
-    button.backgroundColor = UIColor(displayP3Red: 0, green: 0, blue: 1.0, alpha: 1)
-    return button
-}()
-var resetTalentsButton: UIButton = {
-let button = UIButton(frame: CGRect(x: 850, y: 150, width: 150, height: 75))
-    button.isHidden = true
-    button.setTitle("Reset Talents", for: .normal)
-    button.setTitleColor(UIColor(displayP3Red: 0, green: 1.0, blue: 0, alpha: 1), for: .normal)
-    button.backgroundColor = UIColor(displayP3Red: 1.0, green: 0, blue: 0, alpha: 1)
-    return button
-}()
-
 let placement = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
 var tempPoint = CGPoint(x: 0, y: 0)
 
@@ -127,10 +126,24 @@ let itemImageArray: [[UIImageView]] = {
         }
     }
     return view
-    }()
+}()
 
 
-var descriptorLabel: UILabel = UILabel(frame: CGRect(x: 20, y: 610, width: 1154, height: 200))
+var descriptorLabel: UILabel = {
+    var descriptorLabel = UILabel(frame: CGRect(x: 20, y: 610, width: 1154, height: 200))
+    descriptorLabel.isHidden = true
+    descriptorLabel.isUserInteractionEnabled = true
+    descriptorLabel.font = UIFont(name: "Helvetica", size: 40)
+    descriptorLabel.textColor = .red
+    return descriptorLabel
+}()
+var talentLabel: UILabel = {
+    var label = UILabel(frame: CGRect(x: 100, y: 75, width: 500, height: 75))
+    label.isHidden = true
+    label.font = UIFont(name: "Helvetica", size: 30)
+    label.textColor = .magenta
+    return label
+}()
 
 var selectedHero: Character = MissingHero
 
@@ -173,10 +186,7 @@ class GameViewController: UIViewController, UITextFieldDelegate {
     
     fileprivate func loadImageViews() {
         self.view.addSubview(missingTextView)
-        descriptorLabel.isHidden = true
-        descriptorLabel.isUserInteractionEnabled = true
-        descriptorLabel.font = UIFont(name: "Helvetica", size: 40)
-        descriptorLabel.textColor = UIColor(cgColor: CGColor(srgbRed: 1.0, green: 0, blue: 0, alpha: 1.0))
+        self.view.addSubview(talentLabel)
         self.view.addSubview(descriptorLabel)
         for i in 0...3 {
             self.view.addSubview(Warrior.itemImageViews[i])
@@ -875,6 +885,8 @@ class GameViewController: UIViewController, UITextFieldDelegate {
                 talentButtons[i][o].setTitle("", for: .normal)
             }
         }
+        talentLabel.isHidden = true
+        talentLabel.text = ""
         descriptorLabel.isHidden = true
         descriptorLabel.text = ""
         resetTalentsButton.isHidden = true
@@ -967,9 +979,10 @@ class GameViewController: UIViewController, UITextFieldDelegate {
         selectedHero.maxTalentPoints = selectedHero.baseMaxTalentPoints
         for i in 0...3 {
             for j in 0...2 {
-                talentButtons[i][j].setTitle("0", for: .normal)
+                talentButtons[i][j].setTitle("0/3", for: .normal)
             }
         }
+        talentLabel.text = "Remaining Talent Points:  \(selectedHero.currentTalentPoints)"
         print("Talent points reset!")
         //          Undo the augments to ability/physical damage/healing and armor and MS -- undo all talents on selected hero
         //          Impliment once all talents are made

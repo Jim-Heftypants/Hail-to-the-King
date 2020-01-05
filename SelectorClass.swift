@@ -66,12 +66,14 @@ class SelectorClass: NSObject {
     //MARK: Talent Trees
     
     fileprivate func showTalentButtons() {
+        talentLabel.text = "Remaining Talent Points:  \(selectedHero.currentTalentPoints)"
+        talentLabel.isHidden = false
         for i in 0...3 {
             for j in 0...2 {
                 talentButtons[i][j].isHidden = false
                 talentButtons[i][j].backgroundColor = .purple
                 talentButtons[i][j].addTarget(self, action: Selector("\(selectedHero.name)Talent\((i * 3) + j)"), for: .touchUpInside)
-                talentButtons[i][j].setTitle(String(selectedHero.baseMaxTalentPoints[i][j] - selectedHero.maxTalentPoints[i][j]), for: .normal)
+                talentButtons[i][j].setTitle("\(selectedHero.baseMaxTalentPoints[i][j] - selectedHero.maxTalentPoints[i][j])/3", for: .normal)
                 print("Selector: \(selectedHero.name)Talent\((i*3)+j)")
             }
         }
@@ -120,7 +122,8 @@ class SelectorClass: NSObject {
         }
         selectedHero.currentTalentPoints -= 1
         selectedHero.maxTalentPoints[index[0]][index[1]] -= 1
-        talentButtons[index[0]][index[1]].setTitle(String(selectedHero.baseMaxTalentPoints[index[0]][index[1]] - selectedHero.maxTalentPoints[index[0]][index[1]]), for: .normal)
+        talentLabel.text = "Remaining Talent Points:  \(selectedHero.currentTalentPoints)"                                                          //Change the /3 to an indexed value
+        talentButtons[index[0]][index[1]].setTitle("\(selectedHero.baseMaxTalentPoints[index[0]][index[1]] - selectedHero.maxTalentPoints[index[0]][index[1]])/3", for: .normal)
         print("Points spent in this slot  \(selectedHero.baseMaxTalentPoints[index[0]][index[1]] - selectedHero.maxTalentPoints[index[0]][index[1]])")
         selector.perform(Selector(priorTarget))
     }
