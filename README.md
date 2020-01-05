@@ -3,7 +3,7 @@ IOS RPG
 
 -- Note -- "Battleheart Legacy 2" was the origional name created before anything had been developed, the name was changed to "Hail to the King"
 
-These files are meant to be run with XCode, a Mac coding application for IOS development.
+These files are meant to be run with XCode, a Mac coding application for IOS development. Also, the only currently supported device type is the iPad Pro(11-inch) so if you want to play this on the XCode simulator, set the device to iPad Pro(11-inch).
 
 
 This game allows the player to control four different heroes as they battle enemies in real time. The heroes are meant to be used synergystically so as to best survive each level's onslaught of enemies. The heroes are on a quest to vanquish a mad king who brough the realm to ruin.
