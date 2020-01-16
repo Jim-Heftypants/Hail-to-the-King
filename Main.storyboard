@@ -139,27 +139,6 @@
                             <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="T9S-ZR-bjL">
                                 <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
                             </imageView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ic7-m8-Ss5">
-                                <rect key="frame" x="1133" y="387" width="21" height="60"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" button="YES" image="YES"/>
-                                </accessibility>
-                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                <state key="normal" image="arrowshape.turn.up.right.fill" catalog="system"/>
-                                <connections>
-                                    <action selector="switchMapRight:" destination="BV1-FR-VrT" eventType="touchUpInside" id="N1D-gA-7kH"/>
-                                </connections>
-                            </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iPB-vw-2lQ">
-                                <rect key="frame" x="40" y="406" width="75" height="22"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" button="YES" image="YES"/>
-                                </accessibility>
-                                <state key="normal" title="Button" image="arrowshape.turn.up.left.fill" catalog="system"/>
-                                <connections>
-                                    <action selector="switchMapLeft:" destination="BV1-FR-VrT" eventType="touchUpInside" id="zGo-LR-n8s"/>
-                                </connections>
-                            </button>
                             <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KC7-ZR-Wdi">
                                 <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
                             </imageView>
@@ -201,12 +180,9 @@
                             <constraint firstItem="JzM-yU-QiG" firstAttribute="top" secondItem="nKU-u6-IkX" secondAttribute="top" id="6iF-Pi-mIP"/>
                             <constraint firstItem="TpY-fV-lrk" firstAttribute="bottom" secondItem="JzM-yU-QiG" secondAttribute="bottom" id="7MR-rn-fjT"/>
                             <constraint firstItem="TpY-fV-lrk" firstAttribute="trailing" secondItem="JzM-yU-QiG" secondAttribute="trailing" id="CIp-bz-xJi"/>
-                            <constraint firstItem="5iA-nP-zTw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iPB-vw-2lQ" secondAttribute="trailing" constant="8" symbolic="YES" id="Cml-jk-gY2"/>
                             <constraint firstItem="TpY-fV-lrk" firstAttribute="bottom" secondItem="4pc-gQ-3wk" secondAttribute="bottom" id="EVO-pq-UNF"/>
                             <constraint firstItem="gVN-gE-Jjz" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" constant="73" id="J0y-Dw-aQz"/>
-                            <constraint firstItem="iPB-vw-2lQ" firstAttribute="centerY" secondItem="3se-qz-xqx" secondAttribute="centerY" id="JS0-ds-Js1"/>
                             <constraint firstItem="4qk-I5-YsI" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gVN-gE-Jjz" secondAttribute="trailing" symbolic="YES" id="Jz0-i5-gxK"/>
-                            <constraint firstItem="4qk-I5-YsI" firstAttribute="trailing" secondItem="Ic7-m8-Ss5" secondAttribute="trailing" constant="40" id="Mmj-TG-hTy"/>
                             <constraint firstItem="TpY-fV-lrk" firstAttribute="leading" secondItem="T9S-ZR-bjL" secondAttribute="leading" id="N9n-hD-8Ei"/>
                             <constraint firstItem="NgM-VJ-GFp" firstAttribute="centerY" secondItem="3se-qz-xqx" secondAttribute="centerY" constant="-200" id="Pnf-R2-d8O"/>
                             <constraint firstItem="JzM-yU-QiG" firstAttribute="top" secondItem="T9S-ZR-bjL" secondAttribute="top" id="UlA-Q4-Btc"/>
@@ -220,14 +196,12 @@
                             <constraint firstItem="TpY-fV-lrk" firstAttribute="bottom" secondItem="KC7-ZR-Wdi" secondAttribute="bottom" id="ZGg-R2-18H"/>
                             <constraint firstItem="TpY-fV-lrk" firstAttribute="leading" secondItem="nKU-u6-IkX" secondAttribute="leading" id="ZXJ-Om-Vx1"/>
                             <constraint firstItem="5iA-nP-zTw" firstAttribute="centerX" secondItem="3se-qz-xqx" secondAttribute="centerX" id="aOs-ia-0hP"/>
-                            <constraint firstItem="iPB-vw-2lQ" firstAttribute="leading" secondItem="4qk-I5-YsI" secondAttribute="leading" constant="40" id="bl8-c9-gth"/>
                             <constraint firstItem="TpY-fV-lrk" firstAttribute="leading" secondItem="JzM-yU-QiG" secondAttribute="leading" id="ejY-xg-D3X"/>
                             <constraint firstItem="JzM-yU-QiG" firstAttribute="top" secondItem="KC7-ZR-Wdi" secondAttribute="top" id="ev0-g5-hh7"/>
                             <constraint firstItem="TpY-fV-lrk" firstAttribute="trailing" secondItem="nKU-u6-IkX" secondAttribute="trailing" id="ewX-nd-1Nm"/>
                             <constraint firstItem="TpY-fV-lrk" firstAttribute="leading" secondItem="KC7-ZR-Wdi" secondAttribute="leading" id="fEf-7G-NWw"/>
                             <constraint firstItem="JzM-yU-QiG" firstAttribute="top" secondItem="4pc-gQ-3wk" secondAttribute="top" id="gYk-al-CB0"/>
                             <constraint firstItem="TpY-fV-lrk" firstAttribute="trailing" secondItem="sFm-bg-vIc" secondAttribute="trailing" id="hfL-cj-Vbd"/>
-                            <constraint firstItem="Ic7-m8-Ss5" firstAttribute="centerY" secondItem="3se-qz-xqx" secondAttribute="centerY" id="k03-sg-l2U"/>
                             <constraint firstItem="TpY-fV-lrk" firstAttribute="bottom" secondItem="sFm-bg-vIc" secondAttribute="bottom" id="k0g-zB-evy"/>
                             <constraint firstItem="JzM-yU-QiG" firstAttribute="top" secondItem="sFm-bg-vIc" secondAttribute="top" id="kXD-jp-jFl"/>
                             <constraint firstItem="gVN-gE-Jjz" firstAttribute="leading" secondItem="4qk-I5-YsI" secondAttribute="leading" constant="1015" id="lnD-PW-uK5"/>
@@ -260,8 +234,6 @@
                         <outlet property="saveFileTwo" destination="aSQ-yp-0KS" id="AvY-G3-5AI"/>
                         <outlet property="saveStateStack" destination="5iA-nP-zTw" id="ln7-Wi-4DP"/>
                         <outlet property="skillsButton" destination="yR0-1g-ukj" id="NPM-Dc-LzE"/>
-                        <outlet property="switchMapLeft" destination="iPB-vw-2lQ" id="a0d-K0-2gY"/>
-                        <outlet property="switchMapRight" destination="Ic7-m8-Ss5" id="z04-jZ-LQE"/>
                         <outlet property="tapRecognizerView" destination="TpY-fV-lrk" id="H14-zD-Cg2"/>
                         <outlet property="titleButton" destination="sFm-bg-vIc" id="mY0-Da-P1f"/>
                         <outlet property="titleImage" destination="nKU-u6-IkX" id="hG5-EO-rHO"/>
@@ -280,7 +252,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="arrowshape.turn.up.left.fill" catalog="system" width="64" height="52"/>
         <image name="arrowshape.turn.up.right.fill" catalog="system" width="64" height="52"/>
         <image name="c233d9da03f557eb96f6d5c7b574c7e5" width="1300" height="1039"/>
     </resources>

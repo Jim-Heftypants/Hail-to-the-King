@@ -69,6 +69,7 @@ class Character {
     
     var imageView: UIImageView
     let secondaryImageView: UIImageView?
+    var dragImageView: UIImageView
     
     var attackImages: [UIImage] = []
     var movementImages: [UIImage] = []
@@ -115,6 +116,12 @@ class Character {
         if (name == heroList[0]){
             self.imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         }
+        self.dragImageView = {
+            let imageView = UIImageView(frame: CGRect(x: -200, y: -200, width: 200, height: 230))
+            imageView.contentMode = .scaleAspectFit
+            imageView.backgroundColor = UIColor(displayP3Red: 0, green: 0, blue: 1.0, alpha: 1.0)
+            return imageView
+        }()
         self.secondaryImageView = {
             let secondaryImageView = UIImageView(image: secondaryBaseImage)
             secondaryImageView.frame = CGRect(x: -200, y: -200, width: 50, height: 50)
@@ -142,9 +149,12 @@ class Character {
         if (imageNumberMovement != 0) {self.movementImages = self.createAllImageArrays(total: imageNumberMovement, characterName: name, animationType: "Movement")}
         if (imageNumberProjectile != 0) {self.projectileImages = self.createAllImageArrays(total: imageNumberProjectile, characterName: name, animationType: "Projectile")}
         if (imageNumberHeal != 0) {self.healingImages = self.createAllImageArrays(total: imageNumberHeal, characterName: name, animationType: "Heal")}
+        
+        self.imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showAbilities(_:))))
+        self.dragImageView.addGestureRecognizer(UIPanGestureRecognizer(target: GameViewController.self, action: Selector(("moveHero"))))
        
     }
-        
+    
     func createAllImageArrays(total: Int, characterName: String, animationType: String) -> [UIImage] {
         var imageArray: [UIImage] = []
         for imageCount in 1..<(total + 1){
@@ -186,5 +196,23 @@ class Character {
         let currentSelector: Selector = NSSelectorFromString(abilityNames[3])
         selector.perform(currentSelector)
     }
+    
+    @objc func showAbilities(_ sender: UITapGestureRecognizer) {
+        for i in 0...3 {
+            if (activeHeroes[i].imageView.center == sender.view!.center) {
+                selectedHero = activeHeroes[i]
+            }
+        }
+        for i in 0...3 {
+            abilityButtons[i].isHidden = true
+            if (selectedHero.abilityExistanceCheckers[i] == true) {
+                abilityButtons[i].isHidden = false
+                //  Augment apearances of the button here with images
+            }
+        }
+        print("Ability Buttons have been loaded for selected hero")
+    }
+    
+    
     
 }
