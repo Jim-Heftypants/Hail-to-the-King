@@ -25,3 +25,5 @@ The land of Aarondel was once a peaceful land centered on commerce, trading with
 --------------------------------------------------------------------------------------------
 1/4 changelog - added the Heroes Screen which allows the player to switch around which heroes are active, also minor UI updates and bug fixes.
 --------------------------------------------------------------------------------------------
+1/15 - Temporary changes -- unfinished edits to how user interaction with gameplay happens - with this, combat will not function properly at the moment and will likely cause crashes.
+--------------------------------------------------------------------------------------------
