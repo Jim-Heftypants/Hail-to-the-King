@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
     <device id="ipad11_0rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -10,7 +10,7 @@
         <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="Battleheart_Legacy_2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="Hail_to_the_King" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -25,12 +25,8 @@
                                     <action selector="returnToArmory:" destination="BV1-FR-VrT" eventType="touchUpInside" id="TiJ-yH-bUc"/>
                                 </connections>
                             </button>
-                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a25-Ci-l5t">
-                                <rect key="frame" x="20" y="20" width="768" height="678"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="c233d9da03f557eb96f6d5c7b574c7e5" translatesAutoresizingMaskIntoConstraints="NO" id="nKU-u6-IkX">
-                                <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1194" height="1039"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sFm-bg-vIc">
@@ -41,21 +37,16 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NgM-VJ-GFp">
-                                <rect key="frame" x="239" y="162.5" width="716.5" height="109"/>
+                                <rect key="frame" x="311.5" y="162.5" width="571.5" height="109"/>
                                 <attributedString key="attributedText">
-                                    <fragment content="Battleheart Legacy">
+                                    <fragment content="Hail to the King">
                                         <attributes>
                                             <color key="NSColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <font key="NSFont" metaFont="system" size="91"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4T0-mH-iye">
-                                <rect key="frame" x="562" y="352" width="70" height="130.5"/>
-                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="109"/>
-                                <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="123" translatesAutoresizingMaskIntoConstraints="NO" id="5iA-nP-zTw">
@@ -100,7 +91,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Qme-gt-VUa">
-                                <rect key="frame" x="90" y="81" width="340" height="612"/>
+                                <rect key="frame" x="90" y="132" width="340" height="510"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="slk-Sm-LxE">
                                         <rect key="frame" x="0.0" y="0.0" width="340" height="102"/>
@@ -118,16 +109,8 @@
                                             <action selector="equipmentScreen:" destination="BV1-FR-VrT" eventType="touchUpInside" id="0uA-DK-sX2"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rnc-CT-LSK">
-                                        <rect key="frame" x="0.0" y="204" width="340" height="102"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="75"/>
-                                        <state key="normal" title="Vendor"/>
-                                        <connections>
-                                            <action selector="vendorScreen:" destination="BV1-FR-VrT" eventType="touchUpInside" id="5Ya-JW-Yvg"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yR0-1g-ukj">
-                                        <rect key="frame" x="0.0" y="306" width="340" height="102"/>
+                                        <rect key="frame" x="0.0" y="204" width="340" height="102"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="75"/>
                                         <state key="normal" title="Skills"/>
                                         <connections>
@@ -135,7 +118,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6L9-Uz-tef">
-                                        <rect key="frame" x="0.0" y="408" width="340" height="102"/>
+                                        <rect key="frame" x="0.0" y="306" width="340" height="102"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="75"/>
                                         <state key="normal" title="Recruit"/>
                                         <connections>
@@ -143,7 +126,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tdE-mg-lFl">
-                                        <rect key="frame" x="0.0" y="510" width="340" height="102"/>
+                                        <rect key="frame" x="0.0" y="408" width="340" height="102"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="75"/>
                                         <state key="normal" title="Heroes"/>
                                         <connections>
@@ -153,103 +136,6 @@
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                            </stackView>
-                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T9S-ZR-bjL">
-                                <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ic7-m8-Ss5">
-                                <rect key="frame" x="1133" y="387" width="21" height="60"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" button="YES" image="YES"/>
-                                </accessibility>
-                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                <state key="normal" image="arrowshape.turn.up.right.fill" catalog="system"/>
-                                <connections>
-                                    <action selector="switchMapRight:" destination="BV1-FR-VrT" eventType="touchUpInside" id="N1D-gA-7kH"/>
-                                </connections>
-                            </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iPB-vw-2lQ">
-                                <rect key="frame" x="40" y="406" width="75" height="22"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" button="YES" image="YES"/>
-                                </accessibility>
-                                <state key="normal" title="Button" image="arrowshape.turn.up.left.fill" catalog="system"/>
-                                <connections>
-                                    <action selector="switchMapLeft:" destination="BV1-FR-VrT" eventType="touchUpInside" id="zGo-LR-n8s"/>
-                                </connections>
-                            </button>
-                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KC7-ZR-Wdi">
-                                <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JzM-yU-QiG">
-                                <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Z0s-wx-qj9">
-                                <rect key="frame" x="20" y="20" width="882" height="128"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="882" id="efG-YF-aRB"/>
-                                </constraints>
-                            </imageView>
-                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eA1-tU-3PU">
-                                <rect key="frame" x="33" y="181" width="349" height="561"/>
-                            </imageView>
-                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="29B-BH-OPW">
-                                <rect key="frame" x="422" y="181" width="240" height="561"/>
-                            </imageView>
-                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZCH-An-as1">
-                                <rect key="frame" x="695" y="181" width="458" height="561"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="458" id="im9-9F-p7f"/>
-                                </constraints>
-                            </imageView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q54-eB-GRz">
-                                <rect key="frame" x="533.5" y="73" width="17.5" height="22"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" button="YES" image="YES"/>
-                                </accessibility>
-                                <state key="normal" image="pencil" catalog="system"/>
-                                <connections>
-                                    <action selector="selectSecondHero:" destination="BV1-FR-VrT" eventType="touchUpInside" id="YZl-r7-kXH"/>
-                                </connections>
-                            </button>
-                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="f4h-IF-qO7">
-                                <rect key="frame" x="20" y="181" width="612" height="561"/>
-                            </imageView>
-                            <stackView hidden="YES" opaque="NO" contentMode="TopLeft" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" fixedFrame="YES" distribution="equalSpacing" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="V2i-gh-Qwb">
-                                <rect key="frame" x="0.0" y="0.0" width="372" height="30"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xbm-rY-MvM">
-                                        <rect key="frame" x="0.0" y="0.0" width="54" height="30"/>
-                                        <accessibility key="accessibilityConfiguration">
-                                            <accessibilityTraits key="traits" button="YES" image="YES"/>
-                                        </accessibility>
-                                        <state key="normal" title="Ability 1"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fdr-Hh-pkE">
-                                        <rect key="frame" x="104" y="0.0" width="56" height="30"/>
-                                        <accessibility key="accessibilityConfiguration">
-                                            <accessibilityTraits key="traits" button="YES" image="YES"/>
-                                        </accessibility>
-                                        <state key="normal" title="Ability 2"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q4s-1g-cDA">
-                                        <rect key="frame" x="210" y="0.0" width="56" height="30"/>
-                                        <accessibility key="accessibilityConfiguration">
-                                            <accessibilityTraits key="traits" button="YES" image="YES"/>
-                                        </accessibility>
-                                        <state key="normal" title="Ability 3"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IPV-Ep-wCb">
-                                        <rect key="frame" x="316" y="0.0" width="56" height="30"/>
-                                        <accessibility key="accessibilityConfiguration">
-                                            <accessibilityTraits key="traits" button="YES" image="YES"/>
-                                        </accessibility>
-                                        <state key="normal" title="Ability 4"/>
-                                    </button>
-                                </subviews>
                             </stackView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aKH-dl-11I">
                                 <rect key="frame" x="1134" y="39" width="21" height="22"/>
@@ -262,61 +148,21 @@
                                     <action selector="deSelectActiveHero:" destination="BV1-FR-VrT" eventType="touchDown" id="QPV-8j-89M"/>
                                 </connections>
                             </button>
-                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4pc-gQ-3wk">
-                                <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TpY-fV-lrk">
-                                <rect key="frame" x="0.0" y="180" width="1194" height="654"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="FXj-sM-OrC" appends="YES" id="WcQ-VV-FDj"/>
-                                </connections>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="4qk-I5-YsI" firstAttribute="bottom" secondItem="29B-BH-OPW" secondAttribute="bottom" constant="72" id="08c-ut-BdE"/>
-                            <constraint firstItem="4qk-I5-YsI" firstAttribute="bottom" secondItem="29B-BH-OPW" secondAttribute="bottom" constant="72" id="0JH-Za-hJz"/>
-                            <constraint firstItem="4T0-mH-iye" firstAttribute="centerX" secondItem="3se-qz-xqx" secondAttribute="centerX" id="2KQ-bH-Q9x"/>
                             <constraint firstItem="Qme-gt-VUa" firstAttribute="centerY" secondItem="3se-qz-xqx" secondAttribute="centerY" constant="-30" id="3Zb-SW-EjA"/>
                             <constraint firstItem="Eti-6d-Jh3" firstAttribute="centerX" secondItem="3se-qz-xqx" secondAttribute="centerX" id="4kf-7H-OsA"/>
-                            <constraint firstItem="gVN-gE-Jjz" firstAttribute="leading" secondItem="Z0s-wx-qj9" secondAttribute="trailing" constant="113" id="4xl-2V-Wuu"/>
-                            <constraint firstItem="29B-BH-OPW" firstAttribute="leading" secondItem="eA1-tU-3PU" secondAttribute="trailing" constant="40" id="AYU-Xr-MUq"/>
-                            <constraint firstItem="ZCH-An-as1" firstAttribute="top" secondItem="f4h-IF-qO7" secondAttribute="top" id="B03-jZ-GUa"/>
-                            <constraint firstItem="ZCH-An-as1" firstAttribute="leading" secondItem="29B-BH-OPW" secondAttribute="trailing" constant="33" id="HkL-ID-8NR"/>
-                            <constraint firstItem="ZCH-An-as1" firstAttribute="top" secondItem="29B-BH-OPW" secondAttribute="top" id="II4-H7-FGC"/>
-                            <constraint firstItem="4qk-I5-YsI" firstAttribute="bottom" secondItem="eA1-tU-3PU" secondAttribute="bottom" constant="72" id="J44-Tl-cN2"/>
-                            <constraint firstItem="iPB-vw-2lQ" firstAttribute="centerY" secondItem="3se-qz-xqx" secondAttribute="centerY" id="JS0-ds-Js1"/>
-                            <constraint firstItem="NgM-VJ-GFp" firstAttribute="top" secondItem="Z0s-wx-qj9" secondAttribute="bottom" constant="14.5" id="Lhv-sF-7Z1"/>
-                            <constraint firstItem="4qk-I5-YsI" firstAttribute="trailing" secondItem="Ic7-m8-Ss5" secondAttribute="trailing" constant="40" id="Mmj-TG-hTy"/>
-                            <constraint firstItem="ZCH-An-as1" firstAttribute="bottom" secondItem="f4h-IF-qO7" secondAttribute="bottom" id="N3D-H3-dX9"/>
-                            <constraint firstItem="Z0s-wx-qj9" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" constant="20" id="O0m-Ee-lud"/>
                             <constraint firstItem="NgM-VJ-GFp" firstAttribute="centerY" secondItem="3se-qz-xqx" secondAttribute="centerY" constant="-200" id="Pnf-R2-d8O"/>
-                            <constraint firstItem="29B-BH-OPW" firstAttribute="top" secondItem="Z0s-wx-qj9" secondAttribute="bottom" constant="33" id="Qqn-u5-cTM"/>
-                            <constraint firstItem="Z0s-wx-qj9" firstAttribute="centerY" secondItem="gVN-gE-Jjz" secondAttribute="centerY" id="Rd1-Ye-Zot"/>
-                            <constraint firstItem="eA1-tU-3PU" firstAttribute="leading" secondItem="4qk-I5-YsI" secondAttribute="leading" constant="33" id="V2Z-PV-0du"/>
                             <constraint firstItem="5iA-nP-zTw" firstAttribute="centerY" secondItem="3se-qz-xqx" secondAttribute="centerY" id="VGc-b7-dVb"/>
                             <constraint firstItem="Qme-gt-VUa" firstAttribute="leading" secondItem="4qk-I5-YsI" secondAttribute="leading" constant="90" id="Vbk-f2-dEN"/>
                             <constraint firstItem="Eti-6d-Jh3" firstAttribute="centerY" secondItem="3se-qz-xqx" secondAttribute="centerY" id="Wbp-B9-HB7"/>
-                            <constraint firstItem="f4h-IF-qO7" firstAttribute="trailing" secondItem="4T0-mH-iye" secondAttribute="trailing" id="aBZ-pe-7NT"/>
+                            <constraint firstItem="gVN-gE-Jjz" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" constant="73" id="YPH-nc-suP"/>
                             <constraint firstItem="5iA-nP-zTw" firstAttribute="centerX" secondItem="3se-qz-xqx" secondAttribute="centerX" id="aOs-ia-0hP"/>
-                            <constraint firstItem="iPB-vw-2lQ" firstAttribute="leading" secondItem="4qk-I5-YsI" secondAttribute="leading" constant="40" id="bl8-c9-gth"/>
-                            <constraint firstItem="f4h-IF-qO7" firstAttribute="leading" secondItem="Z0s-wx-qj9" secondAttribute="leading" id="boa-4Z-d2o"/>
-                            <constraint firstItem="4T0-mH-iye" firstAttribute="centerY" secondItem="3se-qz-xqx" secondAttribute="centerY" id="cui-oZ-PUT"/>
-                            <constraint firstItem="4qk-I5-YsI" firstAttribute="trailing" secondItem="ZCH-An-as1" secondAttribute="trailing" constant="41" id="gNf-2E-T27"/>
-                            <constraint firstItem="Q54-eB-GRz" firstAttribute="centerX" secondItem="29B-BH-OPW" secondAttribute="centerX" id="jDl-HX-5VY"/>
-                            <constraint firstItem="Ic7-m8-Ss5" firstAttribute="centerY" secondItem="3se-qz-xqx" secondAttribute="centerY" id="k03-sg-l2U"/>
-                            <constraint firstItem="4qk-I5-YsI" firstAttribute="trailing" secondItem="eA1-tU-3PU" secondAttribute="trailing" constant="812" id="k8x-QB-RMG"/>
+                            <constraint firstItem="gVN-gE-Jjz" firstAttribute="leading" secondItem="Qme-gt-VUa" secondAttribute="trailing" constant="585" id="ajV-8z-86t"/>
+                            <constraint firstItem="4qk-I5-YsI" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gVN-gE-Jjz" secondAttribute="trailing" id="d2J-4n-I9P"/>
                             <constraint firstItem="NgM-VJ-GFp" firstAttribute="centerX" secondItem="3se-qz-xqx" secondAttribute="centerX" id="nZl-0Z-pJW"/>
-                            <constraint firstItem="ZCH-An-as1" firstAttribute="leading" secondItem="29B-BH-OPW" secondAttribute="trailing" constant="33" id="nvn-Sm-ZpN"/>
-                            <constraint firstItem="Z0s-wx-qj9" firstAttribute="centerY" secondItem="Q54-eB-GRz" secondAttribute="centerY" id="q88-XN-gKr"/>
-                            <constraint firstItem="Z0s-wx-qj9" firstAttribute="leading" secondItem="4qk-I5-YsI" secondAttribute="leading" constant="20" id="r0y-KK-1gA"/>
-                            <constraint firstItem="eA1-tU-3PU" firstAttribute="top" secondItem="Z0s-wx-qj9" secondAttribute="bottom" constant="33" id="xYn-cw-5Hq"/>
-                            <constraint firstItem="ZCH-An-as1" firstAttribute="bottom" secondItem="29B-BH-OPW" secondAttribute="bottom" id="yxt-Il-jEG"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4qk-I5-YsI"/>
                         <connections>
@@ -324,60 +170,33 @@
                         </connections>
                     </view>
                     <connections>
-                        <outlet property="ability1" destination="xbm-rY-MvM" id="sJN-HT-4Tu"/>
-                        <outlet property="ability2" destination="Fdr-Hh-pkE" id="tSv-9H-fsu"/>
-                        <outlet property="ability3" destination="q4s-1g-cDA" id="fLg-WM-iy6"/>
-                        <outlet property="ability4" destination="IPV-Ep-wCb" id="VuV-yd-rtq"/>
-                        <outlet property="activeHeroPortraits" destination="Z0s-wx-qj9" id="o0L-9P-j05"/>
-                        <outlet property="armorStatView" destination="29B-BH-OPW" id="Il0-2t-1o5"/>
-                        <outlet property="armoryHeroTwo" destination="Q54-eB-GRz" id="hPP-ll-mWC"/>
                         <outlet property="armoryStack" destination="Qme-gt-VUa" id="OEs-zN-9lx"/>
-                        <outlet property="combatAbilityStack" destination="V2i-gh-Qwb" id="y11-1r-hP6"/>
-                        <outlet property="combatBackground" destination="4pc-gQ-3wk" id="zQd-o6-7RP"/>
                         <outlet property="deSelectButton" destination="aKH-dl-11I" id="G1z-MD-x7I"/>
                         <outlet property="enterNameField" destination="Eti-6d-Jh3" id="Wv4-9g-2PI"/>
                         <outlet property="equipmentButton" destination="klY-Ib-s6c" id="2j4-8I-5OA"/>
-                        <outlet property="fullBodyCharacterView" destination="a25-Ci-l5t" id="v3g-8n-h5d"/>
                         <outlet property="heroesButton" destination="tdE-mg-lFl" id="HIA-Y0-HTl"/>
                         <outlet property="mapButton" destination="slk-Sm-LxE" id="idx-cj-7Ma"/>
-                        <outlet property="mapView1" destination="T9S-ZR-bjL" id="SLp-aa-pt1"/>
-                        <outlet property="mapView2" destination="KC7-ZR-Wdi" id="KAx-qx-Bhp"/>
-                        <outlet property="mapView3" destination="JzM-yU-QiG" id="XG6-fa-OaW"/>
-                        <outlet property="ownedArmorView" destination="ZCH-An-as1" id="0Yu-xf-86q"/>
                         <outlet property="recruitButton" destination="6L9-Uz-tef" id="c82-q1-W4Q"/>
                         <outlet property="returnButton" destination="gVN-gE-Jjz" id="6Uc-Q0-qBh"/>
                         <outlet property="saveFileOne" destination="caX-Oc-Uu2" id="IkR-Or-JXh"/>
                         <outlet property="saveFileThree" destination="xag-MD-ySe" id="1BN-Ub-1ZP"/>
                         <outlet property="saveFileTwo" destination="aSQ-yp-0KS" id="AvY-G3-5AI"/>
                         <outlet property="saveStateStack" destination="5iA-nP-zTw" id="ln7-Wi-4DP"/>
-                        <outlet property="selectedCharacterArmor" destination="eA1-tU-3PU" id="cC4-u9-Sls"/>
                         <outlet property="skillsButton" destination="yR0-1g-ukj" id="NPM-Dc-LzE"/>
-                        <outlet property="switchMapLeft" destination="iPB-vw-2lQ" id="a0d-K0-2gY"/>
-                        <outlet property="switchMapRight" destination="Ic7-m8-Ss5" id="z04-jZ-LQE"/>
-                        <outlet property="tapRecognizerView" destination="TpY-fV-lrk" id="H14-zD-Cg2"/>
                         <outlet property="titleButton" destination="sFm-bg-vIc" id="mY0-Da-P1f"/>
                         <outlet property="titleImage" destination="nKU-u6-IkX" id="hG5-EO-rHO"/>
                         <outlet property="titleLabelOne" destination="NgM-VJ-GFp" id="4zm-Ka-poQ"/>
-                        <outlet property="titleLabelTwo" destination="4T0-mH-iye" id="5MW-wu-mdN"/>
-                        <outlet property="vendorButton" destination="Rnc-CT-LSK" id="EN2-tP-zYA"/>
-                        <outlet property="vendorView" destination="f4h-IF-qO7" id="aMW-ib-I4J"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="e5N-Hb-TMe"/>
-                <tapGestureRecognizer id="FXj-sM-OrC">
-                    <connections>
-                        <action selector="combatTap:" destination="BV1-FR-VrT" id="ZIu-Bb-XvQ"/>
-                    </connections>
-                </tapGestureRecognizer>
+                <tapGestureRecognizer id="FXj-sM-OrC"/>
             </objects>
             <point key="canvasLocation" x="137.1859296482412" y="135.97122302158274"/>
         </scene>
     </scenes>
     <resources>
-        <image name="arrowshape.turn.up.left.fill" catalog="system" width="64" height="52"/>
         <image name="arrowshape.turn.up.right.fill" catalog="system" width="64" height="52"/>
         <image name="c233d9da03f557eb96f6d5c7b574c7e5" width="1300" height="1039"/>
-        <image name="pencil" catalog="system" width="64" height="56"/>
     </resources>
 </document>
