@@ -1,9 +1,7 @@
 # Hail-to-the-King
 IOS RPG
 
--- Note -- "Battleheart Legacy 2" was the origional name created before anything had been developed, the name was changed to "Hail to the King"
-
-These files are meant to be run with XCode, a Mac coding application for IOS development. Also, the only currently supported device type is the iPad Pro(11-inch) so if you want to play this on the XCode simulator, set the device to iPad Pro(11-inch).
+These files are meant to be run with XCode, a Mac coding application for IOS development. Also, the only currently supported device type is the iPad Pro(11-inch) so if you want to play this on the XCode simulator, set the device to iPad Pro(11-inch) on landscape mode.
 
 When downloading the code to test or run it, download the Battleheart Legacy 2 folder and Hail to the King.xcodeproj - the other files are extraneous.
 
