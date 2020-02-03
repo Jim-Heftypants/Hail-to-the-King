@@ -28,5 +28,5 @@ The land of Aarondel was once a peaceful land centered on commerce, trading with
 --------------------------------------------------------------------------------------------
 1/15 - Temporary changes -- unfinished edits to how user interaction with gameplay happens - with this, combat will not function properly at the moment and will likely cause crashes.
 --------------------------------------------------------------------------------------------
-1/29 changelog - fixed up combat with the new user interactions with characters being drags and taps rather than the more complicated old tap only system. Fixed up the map page for selecting levels. Added .xcarchive file for running on an actual iOS device (provided you circumvent the apple iOS blocks since I am not a registered dev).
+1/29 changelog - fixed up combat with the new user interactions with characters being drags and taps rather than the more complicated old tap only system. Fixed up the map page for selecting levels. Added .xcarchive file for running on an actual iOS device (provided you circumvent the apple iOS blocks since I am not a registered dev) and deleted extraneous files.
 --------------------------------------------------------------------------------------------
