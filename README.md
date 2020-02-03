@@ -3,7 +3,9 @@ IOS RPG
 
 These files are meant to be run with XCode, a Mac coding application for IOS development. Also, the only currently supported device type is the iPad Pro(11-inch) so if you want to play this on the XCode simulator, set the device to iPad Pro(11-inch) on landscape mode.
 
-When downloading the code to test or run it, download the Battleheart Legacy 2 folder and Hail to the King.xcodeproj - the other files are extraneous.
+When downloading the code to test or run it on xCode, download the Hail to the King folder and Hail to the King.xcodeproj  - Hail_to_the_King is an extraneous duplicate
+
+If you want to run the app on an iOS device without xCode, use the .xcarchive file and convert it into a .ipa. You will need to circumvent apple's security blocks for unknown developer apps doing it this way - since I am not a registered dev, so actually loading the .ipa onto a device from here can be complicated.
 
 This game allows the player to control four different heroes as they battle enemies in real time. The heroes are meant to be used synergystically so as to best survive each level's onslaught of enemies. The heroes are on a quest to vanquish a mad king who brough the realm to ruin.
 
